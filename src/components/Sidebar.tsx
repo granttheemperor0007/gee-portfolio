@@ -18,7 +18,7 @@ import gamexpayLogo from '../assets/icons/gamexpay.png'
 import { GlitchReveal } from './GlitchReveal'
 
 export function Sidebar() {
-  const [chatHovered, setChatHovered] = useState(false)
+  const [, setChatHovered] = useState(false)
   const { RiveComponent: FireAnimation } = useRive({
     src: '/fire.riv',
     autoplay: true,
