@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg-app);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'TWK Lausanne', sans-serif;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(0, 255, 30, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 30, 0.9));
+  }
+}
+
+.glow-dot {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-orange {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(255, 115, 0, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 115, 0, 0.9));
+  }
+}
+
+.glow-dot-orange {
+  animation: glow-pulse-orange 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-blue {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.9));
+  }
+}
+
+.glow-dot-blue {
+  animation: glow-pulse-blue 2s ease-in-out infinite;
+}
+
+.company-chip {
+  transition: color 0.2s ease;
+  cursor: default;
+}
+
+.company-chip:hover {
+  color: white !important;
+}
+
+.btn-sidebar {
+  transition: background 0.3s ease, color 0.3s ease, transform 0.15s ease;
+}
+
+.btn-sidebar:hover {
+  background: white !important;
+  color: black !important;
+}
+
+.btn-sidebar:active {
+  transform: scale(0.93);
+}
+
+.video-thumbnail {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.video-thumbnail:hover {
+  transform: scale(0.96);
+}
+
+.video-thumbnail .play-btn {
+  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.video-thumbnail:active .play-btn,
+.video-thumbnail .play-btn.tapped {
+  transform: scale(0.8);
+}
+
+.icon-tile {
+  border: 0.5px solid transparent;
+  border-radius: 4px;
+  transition: background 200ms ease, border-color 200ms ease;
+  background: transparent;
+}
+
+.icon-tile:hover {
+  background:
+    linear-gradient(180deg, #202020 0%, #414141 100%) padding-box,
+    linear-gradient(180deg, #373737 0%, #262626 100%) border-box;
+}
+
+@keyframes bell-ring {
+  0%, 88%, 100% { transform: rotate(0); }
+  90% { transform: rotate(14deg); }
+  92% { transform: rotate(-12deg); }
+  94% { transform: rotate(10deg); }
+  96% { transform: rotate(-8deg); }
+  98% { transform: rotate(4deg); }
+}
+
+.bell-animate {
+  transform-origin: 50% 15%;
+  animation: bell-ring 3.2s ease-in-out infinite;
+}

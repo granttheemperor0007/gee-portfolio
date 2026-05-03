@@ -1,0 +1,22 @@
+:root {
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-subtle: rgba(255, 255, 255, 0.7);
+
+  /* Borders */
+  --color-border-card: rgba(255, 255, 255, 0.06);
+  --color-border-inner: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+
+  /* Backgrounds / Gradients */
+  --color-bg-app: #18181B;
+  --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-inner-card: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+
+  /* Typography scale */
+  --text-sm: 13px;
+  --text-md: 14px;
+  --tracking-sm: -0.01em;
+  --tracking-md: -0.02em;
+}
