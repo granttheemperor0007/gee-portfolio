@@ -309,7 +309,7 @@ function App() {
           />
         </div>
        </div>
-        <div className={`relative z-20 mt-2 flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
+        <div className={`relative z-20 mt-1 flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
           <h2 className="text-[18px] leading-[28px] tracking-[-0.36px] text-white font-medium">
             Design Shots by Yours Truly
           </h2>
@@ -370,12 +370,12 @@ function App() {
               })
             }}
             aria-label={`Switch to ${gridCols === 1 ? 'two columns' : 'one column'}`}
-            className="hidden xl:flex items-center -my-5 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none leading-none"
+            className="hidden xl:flex items-center -my-7 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none leading-none"
           >
           <svg width="88" height="80" viewBox="0 0 88 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_638_4549)">
-              <rect x="20" y="16" width="48" height="40" rx="20" fill="url(#paint0_linear_638_4549)" shapeRendering="crispEdges"/>
-              <rect x="20.5" y="16.5" width="47" height="39" rx="19.5" stroke="url(#paint1_linear_638_4549)" shapeRendering="crispEdges"/>
+              <rect x="20" y="24" width="48" height="24" rx="12" fill="url(#paint0_linear_638_4549)" shapeRendering="crispEdges"/>
+              <rect x="20.5" y="24.5" width="47" height="23" rx="11.5" stroke="url(#paint1_linear_638_4549)" shapeRendering="crispEdges"/>
               <text x="32" y="40" fontSize="12" fontFamily="inherit" fontWeight="500" fill="white" textAnchor="middle">{gridCols}</text>
               <path d="M58.4435 39.5527C58.6904 39.4294 58.9906 39.5297 59.1141 39.7766C59.2374 40.0236 59.137 40.3238 58.8901 40.4472L55.0861 42.3496C54.0627 42.8612 53.4655 43.1646 52.8302 43.2838C52.2818 43.3867 51.7185 43.3867 51.1701 43.2838C50.5348 43.1646 49.9376 42.8612 48.9142 42.3496L45.1102 40.4472C44.8633 40.3238 44.7629 40.0236 44.8862 39.7766C45.0097 39.5297 45.3098 39.4294 45.5568 39.5527L49.3615 41.455C50.4369 41.9927 50.8895 42.2141 51.355 42.3014C51.7813 42.3813 52.219 42.3813 52.6453 42.3014C53.1108 42.2141 53.5634 41.9927 54.6388 41.455L58.4435 39.5527ZM58.4435 36.2193C58.6904 36.096 58.9906 36.1964 59.1141 36.4433C59.2374 36.6902 59.137 36.9904 58.8901 37.1139L55.0861 39.0162C54.0627 39.5279 53.4655 39.8312 52.8302 39.9505C52.2818 40.0534 51.7185 40.0534 51.1701 39.9505C50.5348 39.8312 49.9376 39.5279 48.9142 39.0162L45.1102 37.1139C44.8633 36.9904 44.7629 36.6902 44.8862 36.4433C45.0097 36.1964 45.3098 36.096 45.5568 36.2193L49.3615 38.1217C50.4369 38.6594 50.8895 38.8807 51.355 38.968C51.7813 39.048 52.219 39.048 52.6453 38.968C53.1108 38.8807 53.5634 38.6594 54.6388 38.1217L58.4435 36.2193ZM51.4162 28.5357C51.8021 28.4633 52.1982 28.4633 52.5841 28.5357C53.036 28.6205 53.458 28.8369 54.1317 29.1738L56.4077 30.3111C57.0128 30.6137 57.498 30.8558 57.8537 31.0761C58.2029 31.2924 58.512 31.5367 58.6753 31.8808C58.9111 32.378 58.9111 32.9552 58.6753 33.4524C58.512 33.7966 58.2029 34.0408 57.8537 34.2571C57.498 34.4774 57.0128 34.7195 56.4077 35.0221L54.1317 36.1594C53.458 36.4963 53.036 36.7127 52.5841 36.7975C52.1982 36.8699 51.8021 36.8699 51.4162 36.7975C50.9643 36.7127 50.5423 36.4963 49.8686 36.1594L47.5926 35.0221C46.9875 34.7195 46.5023 34.4774 46.1466 34.2571C45.7974 34.0408 45.4883 33.7966 45.325 33.4524C45.0892 32.9552 45.0892 32.378 45.325 31.8808C45.4883 31.5367 45.7974 31.2924 46.1466 31.0761C46.5023 30.8558 46.9875 30.6137 47.5926 30.3111L49.8686 29.1738C50.5423 28.8369 50.9643 28.6205 51.4162 28.5357ZM52.3999 29.5188C52.1358 29.4693 51.8645 29.4693 51.6004 29.5188C51.3186 29.5717 51.041 29.7051 50.3159 30.0676L48.0399 31.2057C47.4169 31.5171 46.981 31.7358 46.6733 31.9264C46.3596 32.1207 46.2626 32.2378 46.2287 32.3092C46.1215 32.5352 46.1215 32.798 46.2287 33.024C46.2626 33.0954 46.3596 33.2125 46.6733 33.4068C46.981 33.5974 47.4169 33.8161 48.0399 34.1275L50.3159 35.2656C51.041 35.6281 51.3186 35.7615 51.6004 35.8144C51.8645 35.8639 52.1358 35.8639 52.3999 35.8144C52.6817 35.7615 52.9593 35.6281 53.6844 35.2656L55.9604 34.1275C56.5834 33.8161 57.0193 33.5974 57.327 33.4068C57.6407 33.2125 57.7377 33.0954 57.7716 33.024C57.8788 32.798 57.8788 32.5352 57.7716 32.3092C57.7377 32.2378 57.6407 32.1207 57.327 31.9264C57.0193 31.7358 56.5834 31.5171 55.9604 31.2057L53.6844 30.0676C52.9593 29.7051 52.6817 29.5717 52.3999 29.5188Z" fill="white"/>
             </g>
@@ -390,11 +390,11 @@ function App() {
                 <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_638_4549"/>
                 <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_638_4549" result="shape"/>
               </filter>
-              <linearGradient id="paint0_linear_638_4549" x1="44" y1="16" x2="44" y2="56" gradientUnits="userSpaceOnUse">
+              <linearGradient id="paint0_linear_638_4549" x1="44" y1="24" x2="44" y2="48" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#191919"/>
                 <stop offset="1" stopColor="#262626"/>
               </linearGradient>
-              <linearGradient id="paint1_linear_638_4549" x1="44" y1="16" x2="44" y2="56" gradientUnits="userSpaceOnUse">
+              <linearGradient id="paint1_linear_638_4549" x1="44" y1="24" x2="44" y2="48" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#333131"/>
                 <stop offset="1" stopColor="#191919"/>
               </linearGradient>
