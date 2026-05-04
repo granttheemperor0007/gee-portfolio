@@ -325,6 +325,53 @@ export function Stars() {
     const REPEL_RADIUS = 90
     const REPEL_STRENGTH = 32
 
+    type Shooter = {
+      x: number
+      y: number
+      vx: number
+      vy: number
+      life: number
+      maxLife: number
+      length: number
+      thickness: number
+    }
+    const shooters: Shooter[] = []
+    let nextShooterAt = performance.now() / 1000 + 4 + Math.random() * 8
+
+    const spawnShooter = () => {
+      const edge = Math.floor(Math.random() * 4)
+      const spread = (Math.PI * 2) / 3
+      let x: number, y: number, angle: number
+      if (edge === 0) {
+        x = Math.random() * w
+        y = -40
+        angle = Math.PI / 2 + (Math.random() - 0.5) * spread
+      } else if (edge === 1) {
+        x = w + 40
+        y = Math.random() * h
+        angle = Math.PI + (Math.random() - 0.5) * spread
+      } else if (edge === 2) {
+        x = Math.random() * w
+        y = h + 40
+        angle = -Math.PI / 2 + (Math.random() - 0.5) * spread
+      } else {
+        x = -40
+        y = Math.random() * h
+        angle = 0 + (Math.random() - 0.5) * spread
+      }
+      const speed = 450 + Math.random() * 350
+      shooters.push({
+        x,
+        y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 0,
+        maxLife: 3.2 + Math.random() * 1.6,
+        length: 90 + Math.random() * 90,
+        thickness: 1.2 + Math.random() * 0.8,
+      })
+    }
+
     let rafId = 0
     let last = performance.now()
 
@@ -400,6 +447,54 @@ export function Stars() {
         ctx.beginPath()
         ctx.arc(x, y, 1.4, 0, Math.PI * 2)
         ctx.fill()
+      }
+
+      if (t >= nextShooterAt) {
+        spawnShooter()
+        if (Math.random() < 0.18) spawnShooter()
+        nextShooterAt = t + 5 + Math.random() * 11
+      }
+
+      for (let i = shooters.length - 1; i >= 0; i--) {
+        const sh = shooters[i]
+        sh.life += dt
+        sh.x += sh.vx * dt
+        sh.y += sh.vy * dt
+
+        const lifeT = sh.life / sh.maxLife
+        const fade = lifeT < 0.15 ? lifeT / 0.15 : 1 - Math.max(0, (lifeT - 0.7) / 0.3)
+        const alpha = Math.max(0, Math.min(1, fade))
+
+        const speed = Math.hypot(sh.vx, sh.vy) || 1
+        const ux = sh.vx / speed
+        const uy = sh.vy / speed
+        const tailX = sh.x - ux * sh.length
+        const tailY = sh.y - uy * sh.length
+
+        const grad = ctx.createLinearGradient(sh.x, sh.y, tailX, tailY)
+        grad.addColorStop(0, `rgba(255,255,255,${0.95 * alpha})`)
+        grad.addColorStop(0.4, `rgba(255,255,255,${0.45 * alpha})`)
+        grad.addColorStop(1, 'rgba(255,255,255,0)')
+
+        ctx.globalAlpha = 1
+        ctx.strokeStyle = grad
+        ctx.lineWidth = sh.thickness
+        ctx.lineCap = 'round'
+        ctx.beginPath()
+        ctx.moveTo(tailX, tailY)
+        ctx.lineTo(sh.x, sh.y)
+        ctx.stroke()
+
+        ctx.globalAlpha = alpha
+        ctx.fillStyle = '#ffffff'
+        ctx.beginPath()
+        ctx.arc(sh.x, sh.y, sh.thickness * 1.4, 0, Math.PI * 2)
+        ctx.fill()
+
+        const off = sh.x < -120 || sh.x > w + 120 || sh.y < -120 || sh.y > h + 120
+        if (sh.life >= sh.maxLife || off) {
+          shooters.splice(i, 1)
+        }
       }
 
       rafId = requestAnimationFrame(tick)
