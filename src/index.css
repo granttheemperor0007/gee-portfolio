@@ -138,3 +138,7 @@ a {
   transform-origin: 50% 15%;
   animation: bell-ring 3.2s ease-in-out infinite;
 }
+
+.shot-tile {
+  will-change: transform;
+}

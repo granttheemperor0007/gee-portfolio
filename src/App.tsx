@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
+import { flushSync } from 'react-dom'
 import Lenis from 'lenis'
 import { useRive } from '@rive-app/react-canvas'
 import { Sidebar } from './components/Sidebar'
@@ -40,6 +41,7 @@ function App() {
   const [testimonialsInView, setTestimonialsInView] = useState(false)
   const [activeTab, setActiveTab] = useState<'projects' | 'shots' | 'lab'>('shots')
   const [gridCols, setGridCols] = useState<1 | 2>(1)
+  const [shotsAnimating, setShotsAnimating] = useState(false)
   const projectsTabRef = useRef<HTMLButtonElement>(null)
   const shotsTabRef = useRef<HTMLButtonElement>(null)
   const labTabRef = useRef<HTMLButtonElement>(null)
@@ -148,14 +150,14 @@ function App() {
           ref={shotsRef}
           id="rightdiv2"
           className={`absolute inset-0 overflow-y-auto pt-[104px] pb-[400px] ${gridCols === 2 ? 'grid grid-cols-2' : 'flex flex-col'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
-          style={{ rowGap: '8px', columnGap: gridCols === 2 ? '16px' : '0px', gridAutoRows: 'min-content', alignContent: 'start' }}
+          style={{ rowGap: gridCols === 2 ? '12px' : '12px', columnGap: gridCols === 2 ? '12px' : '0px', gridAutoRows: 'min-content', alignContent: 'start' }}
         >
           {Array.from({ length: 10 }).map((_, i) => {
             const shotSrc = i === 0 ? '/shots/shot-1.jpg' : i === 1 ? '/shots/shot-2.jpg' : i === 2 ? '/shots/shot-3.jpg' : i === 3 ? '/shots/shot-4.jpg' : i === 4 ? '/shots/shot-7.jpg' : null
             return (
             <div
               key={i}
-              className="group relative w-full shrink-0 aspect-[3/2] max-h-[540px] rounded-[24px] overflow-hidden"
+              className="shot-tile group relative w-full shrink-0 aspect-[3/2] max-h-[540px] rounded-[24px] overflow-hidden"
               style={{
                 background:
                   'linear-gradient(180deg, rgba(56,61,64,0.2) 0%, rgba(30,32,35,0.2) 35%, rgba(40,43,46,0.2) 65%, rgba(56,61,64,0.2) 100%)',
@@ -234,7 +236,7 @@ function App() {
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.125 5.3999C11.125 5.00627 11.1245 4.737 11.1064 4.53955C11.088 4.3375 11.0555 4.28208 11.0454 4.26904C10.976 4.18042 10.8703 4.12734 10.7578 4.125C10.7417 4.12467 10.678 4.13127 10.5044 4.23828C10.3484 4.33448 10.1525 4.48002 9.875 4.68799L9.875 7.31201C10.1525 7.51999 10.3484 7.66551 10.5044 7.76172C10.678 7.86874 10.7417 7.87533 10.7578 7.875C10.8703 7.87265 10.976 7.82003 11.0454 7.73144C11.0553 7.71878 11.0879 7.66361 11.1064 7.46045C11.1245 7.26299 11.125 6.99377 11.125 6.6001L11.125 5.3999ZM6.75 3.625C7.09518 3.625 7.375 3.90482 7.375 4.25C7.375 4.59518 7.09518 4.875 6.75 4.875C6.40482 4.875 6.125 4.59518 6.125 4.25C6.125 3.90482 6.40482 3.625 6.75 3.625ZM0.875002 6.5C0.875002 7.20617 0.875205 7.71328 0.907717 8.11133C0.939883 8.50502 1.00163 8.75913 1.10645 8.96484C1.31018 9.36467 1.63533 9.68983 2.03516 9.89355C2.24087 9.99837 2.49498 10.0601 2.88867 10.0923C3.28672 10.1248 3.79383 10.125 4.5 10.125L5.5 10.125C6.20618 10.125 6.71328 10.1248 7.11133 10.0923C7.50502 10.0601 7.75913 9.99837 7.96485 9.89355C8.36467 9.68983 8.68983 9.36467 8.89356 8.96484C8.99837 8.75913 9.06012 8.50502 9.09229 8.11133C9.1248 7.71328 9.125 7.20617 9.125 6.5L9.125 5.5C9.125 4.79383 9.1248 4.28672 9.09229 3.88867C9.06012 3.49498 8.99837 3.24087 8.89356 3.03516C8.68983 2.63533 8.36467 2.31017 7.96485 2.10645C7.75913 2.00163 7.50502 1.93988 7.11133 1.90771C6.71328 1.8752 6.20618 1.875 5.5 1.875L4.5 1.875C3.79383 1.875 3.28672 1.8752 2.88867 1.90771C2.49498 1.93988 2.24087 2.00163 2.03516 2.10645C1.63533 2.31017 1.31018 2.63533 1.10645 3.03516C1.00163 3.24087 0.939883 3.49498 0.907717 3.88867C0.875205 4.28672 0.875002 4.79383 0.875002 5.5L0.875002 6.5ZM11.875 6.6001C11.875 6.97883 11.8754 7.28914 11.8535 7.52881C11.8322 7.76273 11.7853 8.00289 11.6357 8.19385C11.4276 8.45961 11.111 8.61797 10.7734 8.625C10.5309 8.63004 10.3108 8.52321 10.1108 8.3999C10.0265 8.34791 9.93517 8.28534 9.83545 8.21435C9.79821 8.6357 9.72385 8.98661 9.56153 9.30517C9.28589 9.84613 8.84614 10.2859 8.30518 10.5615C7.97611 10.7292 7.61244 10.8039 7.17237 10.8398C6.7367 10.8754 6.19378 10.875 5.5 10.875L4.5 10.875C3.80622 10.875 3.2633 10.8754 2.82764 10.8398C2.38757 10.8039 2.02389 10.7292 1.69483 10.5615C1.15387 10.2859 0.714113 9.84613 0.438479 9.30517C0.270812 8.97611 0.196114 8.61243 0.160159 8.17236C0.124576 7.7367 0.125002 7.19378 0.125002 6.5L0.125002 5.5C0.125002 4.80622 0.124576 4.2633 0.160159 3.82764C0.196114 3.38757 0.270812 3.02389 0.438479 2.69482C0.714113 2.15387 1.15387 1.71411 1.69483 1.43848C2.02389 1.27081 2.38757 1.19611 2.82764 1.16016C3.2633 1.12457 3.80622 1.125 4.5 1.125L5.5 1.125C6.19379 1.125 6.7367 1.12457 7.17237 1.16016C7.61244 1.19611 7.97611 1.27081 8.30518 1.43848C8.84614 1.71411 9.28589 2.15387 9.56153 2.69482C9.72378 3.01327 9.7982 3.36402 9.83545 3.78516C9.93506 3.71425 10.0266 3.65204 10.1108 3.6001C10.3108 3.4768 10.5309 3.37045 10.7734 3.37549C11.111 3.38252 11.4276 3.54078 11.6357 3.80664C11.7853 3.99764 11.8322 4.23773 11.8535 4.47168C11.8754 4.71131 11.875 5.0213 11.875 5.3999L11.875 6.6001Z" fill="currentColor" />
                 </svg>
-                <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">Design shots</span>
+                <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">Design Shots</span>
               </div>
             </button>
             <button
@@ -246,7 +248,7 @@ function App() {
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10.5 9.375C10.7071 9.375 10.875 9.54289 10.875 9.75C10.875 9.95711 10.7071 10.125 10.5 10.125C9.51312 10.125 8.80153 10.1872 8.16113 10.3618C7.5247 10.5354 6.93687 10.8261 6.20801 11.312C6.08205 11.396 5.91796 11.396 5.79199 11.312C5.06313 10.8261 4.4753 10.5354 3.83887 10.3618C3.19847 10.1872 2.48688 10.125 1.5 10.125C1.29289 10.125 1.125 9.9571 1.125 9.75C1.125 9.54289 1.29289 9.375 1.5 9.375C2.5131 9.375 3.30154 9.43784 4.03613 9.63818C4.70756 9.8213 5.31557 10.1147 6 10.5527C6.68443 10.1147 7.29244 9.8213 7.96387 9.63818C8.69846 9.43785 9.4869 9.375 10.5 9.375ZM10.625 1.37549C9.69626 1.37719 8.99801 1.39094 8.35645 1.50342C7.69879 1.61872 7.09438 1.84064 6.375 2.28027L6.375 8.34375C7.39119 7.79683 8.26741 7.62646 9.38281 7.57568C9.6812 7.5621 9.88432 7.55232 10.0391 7.53369C10.1919 7.51529 10.2609 7.49148 10.3013 7.46924C10.4189 7.40448 10.5012 7.31825 10.5605 7.19775C10.582 7.15408 10.6021 7.08666 10.6133 6.94483C10.6247 6.79914 10.625 6.60987 10.625 6.32861L10.625 1.37549ZM1.375 6.32861C1.375 6.60987 1.37529 6.79913 1.38672 6.94482C1.39786 7.08665 1.41796 7.15408 1.43945 7.19775C1.49879 7.31825 1.58106 7.40448 1.69873 7.46924C1.73915 7.49148 1.80811 7.51529 1.96094 7.53369C2.11568 7.55232 2.3188 7.5621 2.61719 7.57568C3.7326 7.62646 4.60882 7.79683 5.625 8.34375L5.625 2.28027C4.90563 1.84063 4.30121 1.61872 3.64356 1.50342C3.002 1.39094 2.30375 1.37719 1.375 1.37549L1.375 6.32861ZM11.375 6.32861C11.375 6.59791 11.3751 6.82158 11.3608 7.00342C11.3463 7.18912 11.3148 7.36406 11.2334 7.5293C11.1062 7.78762 10.9154 7.98761 10.6631 8.12647C10.4995 8.21649 10.3198 8.25533 10.1289 8.27832C9.93993 8.30108 9.70397 8.31165 9.41699 8.32471C8.20243 8.37999 7.35037 8.5776 6.20264 9.31543C6.07916 9.39476 5.92085 9.39476 5.79736 9.31543C4.64963 8.5776 3.79758 8.37999 2.58301 8.32471C2.29604 8.31164 2.06007 8.30108 1.87109 8.27832C1.68019 8.25533 1.50051 8.21649 1.33691 8.12646C1.08465 7.98761 0.893839 7.78762 0.766602 7.5293C0.685229 7.36405 0.653741 7.18912 0.639161 7.00342C0.624895 6.82157 0.625001 6.59791 0.625001 6.32861L0.625002 1C0.625002 0.900544 0.664539 0.80519 0.734865 0.734864C0.805192 0.664537 0.900546 0.625 1 0.625C2.10127 0.625001 2.97033 0.623945 3.77295 0.764649C4.5272 0.896888 5.21552 1.1523 6 1.6294C6.78448 1.1523 7.4728 0.896889 8.22705 0.76465C9.02968 0.623946 9.89873 0.625002 11 0.625002C11.2071 0.625002 11.375 0.792895 11.375 1L11.375 6.32861Z" fill="currentColor" />
                 </svg>
-                <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My projects</span>
+                <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My Projects</span>
               </div>
             </button>
             <button
@@ -323,9 +325,62 @@ function App() {
           </h2>
           <button
             type="button"
-            onClick={() => setGridCols((g) => (g === 1 ? 2 : 1))}
+            onClick={() => {
+              if (shotsAnimating) return
+              const tiles = Array.from(
+                document.querySelectorAll<HTMLDivElement>('#rightdiv2 .shot-tile')
+              )
+              const oldRects = new Map<HTMLDivElement, DOMRect>()
+              tiles.forEach((t) => oldRects.set(t, t.getBoundingClientRect()))
+
+              setShotsAnimating(true)
+              flushSync(() => {
+                setGridCols((g) => (g === 1 ? 2 : 1))
+              })
+
+              const easing = 'cubic-bezier(0.22, 1, 0.36, 1)'
+              const duration = 520
+              let remaining = tiles.length
+              if (remaining === 0) {
+                setShotsAnimating(false)
+                return
+              }
+
+              tiles.forEach((tile) => {
+                const oldRect = oldRects.get(tile)
+                if (!oldRect) {
+                  remaining--
+                  if (remaining === 0) setShotsAnimating(false)
+                  return
+                }
+                const newRect = tile.getBoundingClientRect()
+                const dx = oldRect.left - newRect.left
+                const dy = oldRect.top - newRect.top
+                const sx = oldRect.width / Math.max(newRect.width, 1)
+                const sy = oldRect.height / Math.max(newRect.height, 1)
+
+                tile.style.transformOrigin = '0 0'
+                tile.style.transition = 'none'
+                tile.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`
+                void tile.offsetWidth
+
+                tile.style.transition = `transform ${duration}ms ${easing}`
+                tile.style.transform = ''
+
+                const onEnd = (e: TransitionEvent) => {
+                  if (e.propertyName !== 'transform') return
+                  tile.removeEventListener('transitionend', onEnd)
+                  tile.style.transition = ''
+                  tile.style.transform = ''
+                  tile.style.transformOrigin = ''
+                  remaining--
+                  if (remaining === 0) setShotsAnimating(false)
+                }
+                tile.addEventListener('transitionend', onEnd)
+              })
+            }}
             aria-label={`Switch to ${gridCols === 1 ? 'two columns' : 'one column'}`}
-            className="hidden xl:block -my-5 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none"
+            className="hidden xl:flex items-center -my-5 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none leading-none"
           >
           <svg width="88" height="80" viewBox="0 0 88 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_638_4549)">
