@@ -93,7 +93,7 @@ function App() {
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => setTestimonialsInView(entry.isIntersecting),
-      { threshold: 0.25 }
+      { threshold: 0.25, rootMargin: '0px 0px -65% 0px' }
     )
     observer.observe(el)
     return () => observer.disconnect()
