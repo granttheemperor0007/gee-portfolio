@@ -18,12 +18,13 @@ export function ClaudeLab() {
 
   const shippedCount = DAILY_BUILDS.filter((b) => !!b.vercelUrl).length
 
-  const visible = useMemo(() => {
+  const { hero, completed, upcoming } = useMemo(() => {
     const filtered =
       filter === 'all' ? DAILY_BUILDS : DAILY_BUILDS.filter((b) => b.domain === filter)
-    const ship = filtered.filter((b) => !!b.vercelUrl).sort((a, b) => b.dayNumber - a.dayNumber)
+    const shipped = filtered.filter((b) => !!b.vercelUrl).sort((a, b) => b.dayNumber - a.dayNumber)
+    const [hero, ...completed] = shipped
     const upcoming = filtered.filter((b) => !b.vercelUrl).sort((a, b) => a.dayNumber - b.dayNumber)
-    return [...ship, ...upcoming]
+    return { hero, completed, upcoming }
   }, [filter])
 
   const progressPct = (shippedCount / TOTAL_DAYS) * 100
@@ -75,10 +76,39 @@ export function ClaudeLab() {
         })}
       </div>
 
-      <div className="flex flex-col gap-3">
-        {visible.map((b) => (
-          <DayCard key={b.dayNumber} {...b} />
-        ))}
+      <div className="flex flex-col gap-8">
+        {hero && (
+          <section className="flex flex-col gap-4">
+            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+              Latest Claude Lab Challenge
+            </h2>
+            <DayCard variant="hero" {...hero} />
+          </section>
+        )}
+        {completed.length > 0 && (
+          <section className="flex flex-col gap-4">
+            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+              Completed Challenges
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {completed.map((b) => (
+                <DayCard key={b.dayNumber} variant="compact" {...b} />
+              ))}
+            </div>
+          </section>
+        )}
+        {upcoming.length > 0 && (
+          <section className="flex flex-col gap-4">
+            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+              Upcoming Challenges
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {upcoming.map((b) => (
+                <DayCard key={b.dayNumber} variant="compact" {...b} />
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )
