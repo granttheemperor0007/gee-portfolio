@@ -7,6 +7,7 @@ import { BottomBar } from './components/BottomBar'
 import { ShotInfoBar } from './components/ShotInfoBar'
 import { GlitchReveal } from './components/GlitchReveal'
 import { Stars } from './components/Stars'
+import { ClaudeLab } from './components/ClaudeLab'
 
 function useNigerianTime() {
   const [now, setNow] = useState(() => new Date())
@@ -149,10 +150,14 @@ function App() {
         <div
           ref={shotsRef}
           id="rightdiv2"
-          className={`absolute inset-0 overflow-y-auto pt-[104px] pb-[400px] ${gridCols === 2 ? 'grid grid-cols-2' : 'flex flex-col'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
-          style={{ rowGap: gridCols === 2 ? '12px' : '12px', columnGap: gridCols === 2 ? '12px' : '0px', gridAutoRows: 'min-content', alignContent: 'start' }}
+          className={`absolute inset-0 overflow-y-auto pt-[104px] pb-[400px] ${activeTab === 'shots' ? (gridCols === 2 ? 'grid grid-cols-2' : 'flex flex-col') : 'flex flex-col'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
+          style={{ rowGap: activeTab === 'shots' && gridCols === 2 ? '12px' : '12px', columnGap: activeTab === 'shots' && gridCols === 2 ? '12px' : '0px', gridAutoRows: 'min-content', alignContent: 'start' }}
         >
-          {Array.from({ length: 10 }).map((_, i) => {
+          {activeTab === 'lab' && <ClaudeLab />}
+          {activeTab === 'projects' && (
+            <div className="text-[13px] text-white/40">My Projects coming soon.</div>
+          )}
+          {activeTab === 'shots' && Array.from({ length: 10 }).map((_, i) => {
             const shotSrc = i === 0 ? '/shots/shot-1.jpg' : i === 1 ? '/shots/shot-2.jpg' : i === 2 ? '/shots/shot-3.jpg' : i === 3 ? '/shots/shot-4.jpg' : i === 4 ? '/shots/shot-7.jpg' : null
             return (
             <div
@@ -178,19 +183,21 @@ function App() {
             )
           })}
 
-          <div ref={testimonialsRef} className={`mt-8 shrink-0 ${gridCols === 2 ? 'col-span-2' : ''}`}>
-            <div className="flex items-center gap-3 text-[12px] tracking-[-0.02em] uppercase font-mono text-white/50">
-              <span>Testimonials</span>
-              <span className="w-[5px] h-[5px] rounded-full bg-[#F27313] inline-block" />
-              <span>Thoughts</span>
+          {activeTab === 'shots' && (
+            <div ref={testimonialsRef} className={`mt-8 shrink-0 ${gridCols === 2 ? 'col-span-2' : ''}`}>
+              <div className="flex items-center gap-3 text-[12px] tracking-[-0.02em] uppercase font-mono text-white/50">
+                <span>Testimonials</span>
+                <span className="w-[5px] h-[5px] rounded-full bg-[#F27313] inline-block" />
+                <span>Thoughts</span>
+              </div>
+              <h2 className="text-[18px] leading-[28px] tracking-[-0.02em] text-white mt-[7px]" style={{ fontWeight: 450 }}>
+                <GlitchReveal text="What People Say About My Work" />
+              </h2>
+              <div id="testimonials-content" className="mt-4 flex flex-col gap-4">
+                {/* testimonial entries go here */}
+              </div>
             </div>
-            <h2 className="text-[18px] leading-[28px] tracking-[-0.02em] text-white mt-[7px]" style={{ fontWeight: 450 }}>
-              <GlitchReveal text="What People Say About My Work" />
-            </h2>
-            <div id="testimonials-content" className="mt-4 flex flex-col gap-4">
-              {/* testimonial entries go here */}
-            </div>
-          </div>
+          )}
         </div>
         <div
           aria-hidden
@@ -311,7 +318,11 @@ function App() {
        </div>
         <div className={`relative z-20 mt-1 flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
           <h2 className="text-[18px] leading-[28px] tracking-[-0.36px] text-white font-medium">
-            Design Shots by Yours Truly
+            {activeTab === 'shots'
+              ? 'Design Shots by Yours Truly'
+              : activeTab === 'lab'
+                ? 'Claude Lab'
+                : 'My Projects'}
           </h2>
           <button
             type="button"
@@ -370,7 +381,7 @@ function App() {
               })
             }}
             aria-label={`Switch to ${gridCols === 1 ? 'two columns' : 'one column'}`}
-            className="hidden xl:flex items-center -my-7 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none leading-none"
+            className={`${activeTab === 'shots' ? 'hidden xl:flex' : 'hidden'} items-center -my-7 -mr-3 bg-transparent border-0 p-0 cursor-pointer focus:outline-none leading-none`}
           >
           <svg width="88" height="80" viewBox="0 0 88 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_638_4549)">
