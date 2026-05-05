@@ -242,13 +242,6 @@ function App() {
               <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">Design Shots</span>
             </button>
             <button
-              ref={projectsTabRef}
-              onClick={() => setActiveTab('projects')}
-              className={`bg-transparent border-0 px-0 flex h-full items-center justify-center focus:outline-none transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
-            >
-              <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My Projects</span>
-            </button>
-            <button
               ref={labTabRef}
               onClick={() => setActiveTab('lab')}
               className={`bg-transparent border-0 px-0 flex h-full items-center focus:outline-none transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
@@ -281,6 +274,13 @@ function App() {
                   <span className="text-[12px] leading-none text-white whitespace-nowrap font-medium">2 new</span>
                 </span>
               </div>
+            </button>
+            <button
+              ref={projectsTabRef}
+              onClick={() => setActiveTab('projects')}
+              className={`bg-transparent border-0 px-0 flex h-full items-center justify-center focus:outline-none transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
+            >
+              <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My Projects</span>
             </button>
           </div>
           <div className="flex items-center gap-3 py-2">
