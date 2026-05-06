@@ -28,7 +28,7 @@ function HeroCard({ dayNumber, title, vercelUrl, dom }: DailyBuild & { dom: DomS
   if (!vercelUrl) return null
   return (
     <div
-      className="group relative w-full shrink-0 aspect-[3/2] max-h-[540px] rounded-[24px] overflow-hidden"
+      className="group relative w-full shrink-0 aspect-[3/2] max-h-[580px] rounded-[24px] overflow-hidden"
       style={{ background: SHOT_BG, boxShadow: SHOT_INSET_BORDER }}
     >
       <iframe
@@ -37,8 +37,14 @@ function HeroCard({ dayNumber, title, vercelUrl, dom }: DailyBuild & { dom: DomS
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         referrerPolicy="no-referrer"
-        className="absolute inset-0 w-full h-full"
-        style={{ border: 0 }}
+        className="absolute top-0 left-0"
+        style={{
+          border: 0,
+          width: 'calc(100% / 0.6)',
+          height: 'calc(100% / 0.6)',
+          transformOrigin: 'top left',
+          transform: 'scale(0.6)',
+        }}
       />
       <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
         <div

@@ -17,6 +17,7 @@ export const DAILY_BUILDS: DailyBuild[] = [
     domain: 'gaming',
     description: 'Live K/D ratio dashboard pulling from match telemetry.',
     releaseDate: 'May 4',
+    vercelUrl: 'https://gee-day1-cod-rank.vercel.app',
   },
   {
     dayNumber: 2,
