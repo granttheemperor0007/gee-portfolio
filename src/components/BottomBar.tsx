@@ -99,19 +99,19 @@ export function BottomBar() {
         <Divider />
 
         <div className="flex items-center gap-1">
-          <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
+          <a href="https://dribbble.com/Geetheemperor" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <DribbbleIcon />
           </a>
           <a href="https://contra.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <ContraIcon />
           </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
+          <a href="https://github.com/granttheemperor0007" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <GitHubIcon />
           </a>
-          <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
+          <a href="https://x.com/granttheeking" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <XIcon />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
+          <a href="https://www.linkedin.com/in/grant-aiyedun/" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <LinkedInIcon />
           </a>
         </div>
