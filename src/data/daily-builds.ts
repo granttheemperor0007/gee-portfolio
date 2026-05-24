@@ -126,7 +126,7 @@ export const DAILY_BUILDS: DailyBuild[] = [
   },
   {
     dayNumber: 17,
-    title: 'Prediction Market Card (Long John tribute)',
+    title: 'Prediction Market Card',
     domain: 'web3',
     description: 'Question, yes/no shares, odds, and volume.',
     releaseDate: 'May 18',
