@@ -102,7 +102,7 @@ export function BottomBar() {
           <a href="https://dribbble.com/Geetheemperor" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <DribbbleIcon />
           </a>
-          <a href="https://contra.com" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
+          <a href="https://contra.com/jahgrant_aiyedun_ilpttg08" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
             <ContraIcon />
           </a>
           <a href="https://github.com/granttheemperor0007" target="_blank" rel="noopener noreferrer" className="icon-tile flex items-center justify-center w-[26px] h-[26px]">
