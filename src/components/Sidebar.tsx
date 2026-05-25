@@ -123,7 +123,7 @@ export function Sidebar() {
   return (
     <aside
       ref={sidebarRef}
-      className={`relative w-full max-w-[720px] mx-auto mb-4 overflow-visible border border-white/[0.06] p-2 flex flex-col xl:max-w-none xl:mx-0 xl:fixed xl:top-6 xl:left-6 xl:bottom-6 xl:mb-0 xl:w-[344px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${needsScroll ? 'xl:overflow-y-auto' : 'xl:overflow-hidden'}`}
+      className={`relative w-full max-w-[720px] mx-auto mb-4 overflow-visible border border-white/[0.06] p-2 flex flex-col xl:max-w-none xl:mx-0 xl:fixed xl:top-6 xl:left-6 xl:bottom-6 xl:mb-0 xl:w-[344px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] xl:overflow-y-auto`}
       style={{ background: 'rgba(34, 34, 37, 0.5)', filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25))' }}
     >
       <div
