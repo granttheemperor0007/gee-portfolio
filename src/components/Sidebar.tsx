@@ -259,7 +259,7 @@ export function Sidebar() {
               </radialGradient>
             </defs>
           </svg>
-          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-mono text-white/50">Companies</span>
+          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-jetbrains text-white/50">Companies</span>
         </div>
         <h2 className="text-[18px] leading-[32px] tracking-[-0.015em] text-white mt-2" style={{ fontWeight: 450 }}>
           Companies I've had Impacts on
@@ -380,7 +380,7 @@ export function Sidebar() {
               </radialGradient>
             </defs>
           </svg>
-          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-mono text-white/50">Tech Stack</span>
+          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-jetbrains text-white/50">Tech Stack</span>
         </div>
         <div className="flex items-center gap-3 mt-4">
           <img src={figmaIcon} alt="Figma" className="w-8 h-8 rounded-lg" />
