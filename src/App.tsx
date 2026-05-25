@@ -225,7 +225,7 @@ function App() {
               ref={mShotsTabRef}
               type="button"
               onClick={() => setActiveTab('shots')}
-              className={`shrink-0 bg-transparent px-0 text-[13px] font-bold leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
             >
               Design Shots
             </button>
@@ -233,7 +233,7 @@ function App() {
               ref={mLabTabRef}
               type="button"
               onClick={() => setActiveTab('lab')}
-              className={`shrink-0 flex items-center gap-1 bg-transparent px-0 text-[13px] font-bold leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 flex items-center gap-1 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
             >
               Claude Lab
               <span className="shrink-0 flex items-center h-4 px-2 rounded-full bg-[#D85A2C] text-[10px] leading-none text-white font-medium">2</span>
@@ -242,7 +242,7 @@ function App() {
               ref={mProjectsTabRef}
               type="button"
               onClick={() => setActiveTab('projects')}
-              className={`shrink-0 bg-transparent px-0 text-[13px] font-bold leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
             >
               My Projects
             </button>
