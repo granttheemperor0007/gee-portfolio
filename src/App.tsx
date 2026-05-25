@@ -298,7 +298,7 @@ function App() {
         </div>
         <div
           ref={grayLineRef}
-          className="relative h-px w-full bg-[#252525]"
+          className="relative h-px w-full bg-[#252525] mt-3 xl:mt-0"
         >
           <span
             className="hidden xl:block absolute top-0 h-px bg-[#ff7043] transition-all duration-300 ease-out"
