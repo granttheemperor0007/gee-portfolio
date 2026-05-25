@@ -7,6 +7,7 @@ import { BottomBar } from './components/BottomBar'
 import { ShotInfoBar } from './components/ShotInfoBar'
 import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
+import { Footer } from './components/Footer'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
 const DESIGN_SHOTS = [
@@ -177,6 +178,9 @@ function App() {
             </div>
           ))}
 
+          <div className="col-span-2 w-full">
+            <Footer />
+          </div>
         </div>
         <div
           aria-hidden
