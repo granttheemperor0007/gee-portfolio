@@ -147,6 +147,7 @@ export function Sidebar() {
                   onMouseEnter={() => { playSwipeSound(); setChatHovered(true) }}
                   onMouseLeave={() => setChatHovered(false)}
                   onMouseDown={playClickSound}
+                  onClick={() => window.open('https://wa.me/2349021077403', '_blank', 'noopener,noreferrer')}
                   style={{
                     background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08), rgba(153,153,153,0.08))',
                     border: 'none',
