@@ -342,12 +342,12 @@ export function Sidebar() {
                       href={c.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group/row flex items-center gap-3 text-white"
+                      className="group/row flex items-center gap-3 text-[#fafafa]"
                     >
                       {inner}
                     </a>
                   ) : (
-                    <div key={c.name} className="flex items-center gap-3 text-white/60">
+                    <div key={c.name} className="flex items-center gap-3 text-[#fafafa]">
                       {inner}
                     </div>
                   )
