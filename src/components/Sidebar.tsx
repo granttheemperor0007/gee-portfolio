@@ -150,7 +150,7 @@ export function Sidebar() {
           </div>
           <div id="div2" className="flex flex-col gap-6 px-4 pb-4">
               <div className="flex flex-col gap-1">
-                <h1 className="text-[24px] leading-[32px] tracking-[-0.025em] text-white font-bold xl:font-[450]">
+                <h1 className="text-[24px] leading-[32px] tracking-[-0.025em] text-white hero-heading">
                   <GlitchReveal
                     text="Designing & Building High Quality Products; End to End - Using AI"
                     repeatEvery={10000}
