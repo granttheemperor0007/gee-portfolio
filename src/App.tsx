@@ -9,6 +9,14 @@ import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
+const DESIGN_SHOTS = [
+  '/shots/shot-1.jpg',
+  '/shots/shot-2.jpg',
+  '/shots/shot-3.jpg',
+  '/shots/shot-4.jpg',
+  '/shots/shot-7.jpg',
+]
+
 function useNigerianTime() {
   const [now, setNow] = useState(() => new Date())
 
@@ -148,9 +156,7 @@ function App() {
           {activeTab === 'projects' && (
             <div className="text-[13px] text-white/40">My Projects coming soon.</div>
           )}
-          {activeTab === 'shots' && Array.from({ length: 10 }).map((_, i) => {
-            const shotSrc = i === 0 ? '/shots/shot-1.jpg' : i === 1 ? '/shots/shot-2.jpg' : i === 2 ? '/shots/shot-3.jpg' : i === 3 ? '/shots/shot-4.jpg' : i === 4 ? '/shots/shot-7.jpg' : null
-            return (
+          {activeTab === 'shots' && DESIGN_SHOTS.map((shotSrc, i) => (
             <div
               key={i}
               className="shot-tile group relative w-full shrink-0 aspect-[3/2] max-h-[540px] rounded-[24px] overflow-hidden"
@@ -160,19 +166,16 @@ function App() {
                 boxShadow: 'inset 0 0 0 1px rgba(72,72,79,0.155)',
               }}
             >
-              {shotSrc && (
-                <img
-                  src={shotSrc}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              )}
+              <img
+                src={shotSrc}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
                 <ShotInfoBar />
               </div>
             </div>
-            )
-          })}
+          ))}
 
         </div>
         <div
