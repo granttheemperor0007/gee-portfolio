@@ -8,6 +8,7 @@ import { ShotInfoBar } from './components/ShotInfoBar'
 import { GlitchReveal } from './components/GlitchReveal'
 import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
+import { useMediaQuery } from './hooks/useMediaQuery'
 
 function useNigerianTime() {
   const [now, setNow] = useState(() => new Date())
@@ -37,6 +38,7 @@ function useNigerianTime() {
 
 function App() {
   const { date, time } = useNigerianTime()
+  const isDesktop = useMediaQuery('(min-width: 1280px)')
   const shotsRef = useRef<HTMLDivElement>(null)
   const testimonialsRef = useRef<HTMLDivElement>(null)
   const [testimonialsInView, setTestimonialsInView] = useState(false)
@@ -101,6 +103,9 @@ function App() {
   }, [])
 
   useEffect(() => {
+    // Lenis hijacks scroll on the fixed desktop content pane. On mobile the
+    // page scrolls natively, so keep it off there to avoid fighting touch.
+    if (!isDesktop) return
     const wrapper = shotsRef.current
     if (!wrapper) return
 
@@ -139,18 +144,18 @@ function App() {
       window.removeEventListener('wheel', onPageWheel)
       lenis.destroy()
     }
-  }, [])
+  }, [isDesktop])
 
   return (
     <>
     <main className="min-h-screen px-4 py-6 font-body" style={{ background: 'var(--color-bg-app)' }}>
       <Sidebar />
-      <div id="rightside" className="fixed top-6 right-6 bottom-0 left-[392px] flex justify-center">
-       <div className="relative w-full h-full max-w-[1024px]">
+      <div id="rightside" className="relative w-full flex justify-center xl:fixed xl:top-6 xl:right-6 xl:bottom-0 xl:left-[392px]">
+       <div className="relative flex flex-col w-full h-auto max-w-full xl:block xl:h-full xl:max-w-[1024px]">
         <div
           ref={shotsRef}
           id="rightdiv2"
-          className={`absolute inset-0 overflow-y-auto pt-[104px] pb-[400px] ${activeTab === 'shots' ? (gridCols === 2 ? 'grid grid-cols-2' : 'flex flex-col') : 'flex flex-col'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
+          className={`relative order-2 flex flex-col overflow-visible pt-4 pb-32 xl:absolute xl:inset-0 xl:overflow-y-auto xl:pt-[104px] xl:pb-[400px] ${activeTab === 'shots' && gridCols === 2 ? 'xl:grid xl:grid-cols-2' : 'xl:flex xl:flex-col'} [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]`}
           style={{ rowGap: activeTab === 'shots' && gridCols === 2 ? '12px' : '12px', columnGap: activeTab === 'shots' && gridCols === 2 ? '12px' : '0px', gridAutoRows: 'min-content', alignContent: 'start' }}
         >
           {activeTab === 'lab' && <ClaudeLab />}
@@ -201,7 +206,7 @@ function App() {
         </div>
         <div
           aria-hidden
-          className="pointer-events-none absolute top-0 left-0 right-0 h-[140px] z-10"
+          className="hidden xl:block pointer-events-none absolute top-0 left-0 right-0 h-[140px] z-10"
           style={{
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
@@ -212,7 +217,7 @@ function App() {
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-0 left-[-16px] right-[-16px] h-[140px] z-10"
+          className="hidden xl:block pointer-events-none absolute bottom-0 left-[-16px] right-[-16px] h-[140px] z-10"
           style={{
             backdropFilter: 'blur(28px)',
             WebkitBackdropFilter: 'blur(28px)',
@@ -221,18 +226,32 @@ function App() {
             WebkitMaskImage: 'linear-gradient(to top, black 0%, black 60%, transparent 100%)',
           }}
         />
-       <div className="relative z-20">
-        <div id="rightdiv1" className="relative flex items-center justify-between w-full">
-          <button
-            type="button"
-            aria-label="Open menu"
-            className="xl:hidden bg-transparent border-0 px-0 flex h-full items-center justify-center focus:outline-none text-white hover:text-white/80 transition-colors"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 15L18.379 11.621C18.576 11.424 18.8098 11.2678 19.0672 11.1612C19.3246 11.0547 19.6004 10.9999 19.879 11H20C20.5304 11 21.0391 11.2107 21.4142 11.5858C21.7893 11.9609 22 12.4696 22 13C22 13.5304 21.7893 14.0391 21.4142 14.4142C21.0391 14.7893 20.5304 15 20 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H8.515C10.106 11.0001 11.6319 11.6321 12.757 12.757L15 15ZM3 15H21V17C21 17.7956 20.6839 18.5587 20.1213 19.1213C19.5587 19.6839 18.7956 20 18 20H6C5.20435 20 4.44129 19.6839 3.87868 19.1213C3.31607 18.5587 3 17.7956 3 17V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M12.0001 4C7.37713 4 3.56813 5.756 3.05813 10C2.99213 10.55 3.44813 11 4.00013 11H20.0001C20.5521 11 21.0081 10.55 20.9421 10C20.4321 5.756 16.6231 4 12.0001 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+       <div className="relative z-20 order-1">
+        <div id="rightdiv1" className="relative flex items-center justify-between w-full gap-3">
+          <div className="flex xl:hidden min-w-0 items-center gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <button
+              type="button"
+              onClick={() => setActiveTab('shots')}
+              className={`shrink-0 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
+            >
+              Design Shots
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('lab')}
+              className={`shrink-0 flex items-center gap-1 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
+            >
+              Claude Lab
+              <span className="shrink-0 flex items-center h-4 px-2 rounded-full bg-[#D85A2C] text-[10px] leading-none text-white font-medium">2</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('projects')}
+              className={`shrink-0 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
+            >
+              My Projects
+            </button>
+          </div>
           <div className="hidden xl:flex gap-6 h-full items-center">
             <button
               ref={shotsTabRef}
@@ -283,7 +302,7 @@ function App() {
               <span className="text-[12px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My Projects</span>
             </button>
           </div>
-          <div className="flex items-center gap-3 py-2">
+          <div className="flex shrink-0 items-center gap-3 py-2">
             <div className="hidden xl:flex gap-3 h-full items-center">
               <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.24px] uppercase text-white/50 whitespace-nowrap">{date}</span>
               <span className="w-[5px] h-[5px] rounded-full bg-[#F27313] inline-block" />
@@ -316,7 +335,7 @@ function App() {
           />
         </div>
        </div>
-        <div className={`relative z-20 mt-1 flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
+        <div className={`relative z-20 mt-1 hidden xl:flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
           <h2 className="text-[18px] leading-[28px] tracking-[-0.36px] text-white font-medium">
             {activeTab === 'shots'
               ? 'Design Shots by Yours Truly'
@@ -413,7 +432,7 @@ function App() {
           </svg>
           </button>
         </div>
-        <div id="rightdiv3" className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none z-30">
+        <div id="rightdiv3" className="fixed bottom-4 left-0 right-0 flex justify-center pointer-events-none z-30 xl:absolute xl:bottom-8">
           <div className="pointer-events-auto">
             <BottomBar />
           </div>

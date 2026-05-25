@@ -85,7 +85,7 @@ export function BottomBar() {
   return (
     <div className="flex items-center justify-center">
       <div
-        className="flex items-center gap-3 px-3 h-12 rounded-[20px]"
+        className="flex items-center gap-1 px-2 h-12 rounded-[20px] xl:gap-3 xl:px-3"
         style={{
           background: 'linear-gradient(180deg, #191919 0%, #262626 100%)',
           border: '1px solid #333131',
