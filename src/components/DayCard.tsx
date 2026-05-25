@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { BuildDomain, DailyBuild } from '../data/daily-builds'
 
 type DomStyle = { label: string; color: string; bg: string; border: string }
@@ -25,19 +26,28 @@ export function DayCard({ variant, ...props }: DailyBuild & { variant?: Variant 
 }
 
 function HeroCard({ dayNumber, title, vercelUrl, dom }: DailyBuild & { dom: DomStyle }) {
+  const [loaded, setLoaded] = useState(false)
   if (!vercelUrl) return null
   return (
     <div
       className="group relative w-full shrink-0 aspect-[3/2] max-h-[580px] rounded-[24px] overflow-hidden"
       style={{ background: SHOT_BG, boxShadow: SHOT_INSET_BORDER }}
     >
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center" style={{ background: SHOT_BG }}>
+          <div className="flex items-center gap-2 text-white/40">
+            <span className="h-3.5 w-3.5 rounded-full border-2 border-white/15 border-t-white/50 animate-spin" />
+            <span className="font-mono text-[11px] uppercase tracking-[0.08em]">Loading preview…</span>
+          </div>
+        </div>
+      )}
       <iframe
         src={vercelUrl}
         title={title}
         loading="lazy"
-        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-        referrerPolicy="no-referrer"
-        className="absolute top-0 left-0 origin-top-left w-[calc(100%/0.35)] h-[calc(100%/0.35)] scale-[0.35] xl:w-[calc(100%/0.6)] xl:h-[calc(100%/0.6)] xl:scale-[0.6]"
+        onLoad={() => setLoaded(true)}
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals"
+        className={`absolute top-0 left-0 origin-top-left w-[calc(100%/0.35)] h-[calc(100%/0.35)] scale-[0.35] xl:w-[calc(100%/0.6)] xl:h-[calc(100%/0.6)] xl:scale-[0.6] transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         style={{ border: 0 }}
       />
       <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">

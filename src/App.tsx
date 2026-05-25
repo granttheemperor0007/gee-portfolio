@@ -145,15 +145,32 @@ function App() {
     }
   }, [isDesktop])
 
-  // Switching tabs swaps the content but keeps the pane's scroll offset, so a new
-  // tab could open mid-page. Reset to the top on every tab change.
+  // Switching tabs swaps content but keeps the pane's scroll offset, so a new tab
+  // could open mid-page. Reset to the top — and keep it pinned until the visitor
+  // actually scrolls, because embedded Lab iframes autofocus on load and would
+  // otherwise drag the pane down to themselves (e.g. the K/D Tracker build).
   useEffect(() => {
     const wrapper = shotsRef.current
-    if (!wrapper) return
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true })
-    } else {
-      wrapper.scrollTop = 0
+    const toTop = () => {
+      if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true })
+      else if (wrapper) wrapper.scrollTop = 0
+    }
+    toTop()
+    let pinned = true
+    const release = () => { pinned = false }
+    const repin = () => { if (pinned) toTop() }
+    const passive = { passive: true } as AddEventListenerOptions
+    window.addEventListener('wheel', release, passive)
+    window.addEventListener('touchstart', release, passive)
+    window.addEventListener('keydown', release)
+    wrapper?.addEventListener('scroll', repin, passive)
+    const auto = window.setTimeout(release, 3000)
+    return () => {
+      window.removeEventListener('wheel', release)
+      window.removeEventListener('touchstart', release)
+      window.removeEventListener('keydown', release)
+      wrapper?.removeEventListener('scroll', repin)
+      window.clearTimeout(auto)
     }
   }, [activeTab])
 
