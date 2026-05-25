@@ -193,7 +193,7 @@ function App() {
           {activeTab === 'shots' && DESIGN_SHOTS.map((shot, i) => (
             <div
               key={i}
-              className="shot-tile group relative w-full shrink-0 aspect-[4/3] max-h-[712px] rounded-[24px] overflow-hidden"
+              className="shot-tile group relative w-full shrink-0 aspect-[4/3] max-h-[664px] rounded-[24px] overflow-hidden"
               style={{
                 background:
                   'linear-gradient(180deg, rgba(56,61,64,0.2) 0%, rgba(30,32,35,0.2) 35%, rgba(40,43,46,0.2) 65%, rgba(56,61,64,0.2) 100%)',
