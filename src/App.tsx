@@ -216,29 +216,33 @@ function App() {
           }}
         />
        <div className="relative z-20 order-1">
-        <div id="rightdiv1" className="relative flex items-center justify-between w-full gap-3">
+        <div className="xl:hidden h-px w-full bg-[#252525]" />
+        <div id="rightdiv1" className="relative flex items-center justify-between w-full gap-3 mt-8 xl:mt-0">
           <div className="flex xl:hidden min-w-0 items-center gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <button
               type="button"
               onClick={() => setActiveTab('shots')}
-              className={`shrink-0 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
+              className={`relative shrink-0 bg-transparent px-0 pb-2 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
             >
               Design Shots
+              {activeTab === 'shots' && <span className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#ff7043]" />}
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('lab')}
-              className={`shrink-0 flex items-center gap-1 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
+              className={`relative shrink-0 flex items-center gap-1 bg-transparent px-0 pb-2 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
             >
               Claude Lab
               <span className="shrink-0 flex items-center h-4 px-2 rounded-full bg-[#D85A2C] text-[10px] leading-none text-white font-medium">2</span>
+              {activeTab === 'lab' && <span className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#ff7043]" />}
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('projects')}
-              className={`shrink-0 bg-transparent border-0 px-0 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
+              className={`relative shrink-0 bg-transparent px-0 pb-2 text-[13px] leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
             >
               My Projects
+              {activeTab === 'projects' && <span className="absolute inset-x-0 bottom-0 h-[2px] rounded-full bg-[#ff7043]" />}
             </button>
           </div>
           <div className="hidden xl:flex gap-6 h-full items-center">
