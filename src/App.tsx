@@ -47,6 +47,7 @@ function App() {
   const { date, time } = useNigerianTime()
   const isDesktop = useMediaQuery('(min-width: 1280px)')
   const shotsRef = useRef<HTMLDivElement>(null)
+  const lenisRef = useRef<Lenis | null>(null)
   const [activeTab, setActiveTab] = useState<'projects' | 'shots' | 'lab'>('shots')
   const [gridCols, setGridCols] = useState<1 | 2>(1)
   const [shotsAnimating, setShotsAnimating] = useState(false)
@@ -113,6 +114,7 @@ function App() {
       syncTouch: true,
       syncTouchLerp: 0.13,
     })
+    lenisRef.current = lenis
 
     let rafId = 0
     const raf = (time: number) => {
@@ -137,8 +139,21 @@ function App() {
       cancelAnimationFrame(rafId)
       window.removeEventListener('wheel', onPageWheel)
       lenis.destroy()
+      lenisRef.current = null
     }
   }, [isDesktop])
+
+  // Switching tabs swaps the content but keeps the pane's scroll offset, so a new
+  // tab could open mid-page. Reset to the top on every tab change.
+  useEffect(() => {
+    const wrapper = shotsRef.current
+    if (!wrapper) return
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true })
+    } else {
+      wrapper.scrollTop = 0
+    }
+  }, [activeTab])
 
   return (
     <>
