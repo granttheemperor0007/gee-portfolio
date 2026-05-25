@@ -203,7 +203,7 @@ function App() {
               <img
                 src={shot.src}
                 alt={shot.title}
-                className="absolute inset-0 w-full h-full object-contain p-6"
+                className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
                 <ShotInfoBar title={shot.title} />
