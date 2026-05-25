@@ -80,7 +80,7 @@ export function Sidebar() {
   const companies: { name: string; logo: string; current?: boolean; url?: string }[] = [
     { name: 'Termii', logo: termiiLogo, current: true, url: 'https://termii.com' },
     { name: 'Hashit', logo: hashitLogo, url: 'https://hashit.com' },
-    { name: 'Digital abundance', logo: digitalLogo },
+    { name: 'Digital abundance', logo: digitalLogo, url: 'https://daba.school' },
     { name: 'Partyjor', logo: partyjorLogo },
     { name: 'GameXpay', logo: gamexpayLogo, url: 'https://gamexpay.com' },
   ]
