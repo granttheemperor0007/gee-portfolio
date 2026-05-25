@@ -280,7 +280,7 @@ function App() {
               <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.24px] uppercase text-white/50 whitespace-nowrap">{time}</span>
             </div>
             <button
-              className="btn-sidebar group rounded-full pl-3 pr-4 h-6 text-[12px] font-body text-white flex items-center"
+              className="btn-sidebar group rounded-full pl-3 pr-4 h-6 text-[12px] font-body text-white hidden xl:flex items-center"
               style={{
                 background: 'rgba(255,255,255,0.08)',
                 border: '0.5px solid rgba(255,255,255,0.05)',
