@@ -110,7 +110,7 @@ export function ClaudeLab() {
         {upcoming.length > 0 && (
           <section className="flex flex-col gap-4">
             <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.015em] text-white" style={{ fontWeight: 450 }}>
-              Upcoming Challenges
+              Upcoming Builds
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {upcoming.map((b) => (
