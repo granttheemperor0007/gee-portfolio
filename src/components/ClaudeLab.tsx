@@ -81,10 +81,10 @@ export function ClaudeLab() {
         {heroes.length > 0 && (
           <section className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">
-              <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+              <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.015em] text-white" style={{ fontWeight: 450 }}>
                 Latest Claude Lab Challenge{heroes.length > 1 ? 's' : ''}
               </h2>
-              <p className="m-0 text-[14px] leading-[20px] tracking-[-0.02em] text-white/50">
+              <p className="m-0 text-[14px] leading-[20px] tracking-[-0.015em] text-white/50">
                 These builds are live — open one and interact with it.
               </p>
             </div>
@@ -97,7 +97,7 @@ export function ClaudeLab() {
         )}
         {completed.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.015em] text-white" style={{ fontWeight: 450 }}>
               Completed Challenges
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -109,7 +109,7 @@ export function ClaudeLab() {
         )}
         {upcoming.length > 0 && (
           <section className="flex flex-col gap-4">
-            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
+            <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.015em] text-white" style={{ fontWeight: 450 }}>
               Upcoming Challenges
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">

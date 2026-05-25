@@ -46,7 +46,7 @@ export function ShotInfoBar({ title = 'Randler Health Care App' }: Props) {
         </div>
 
         <div className="flex flex-col gap-[4px] items-start">
-          <p className="leading-[20px] text-[14px] text-white tracking-[-0.21px] whitespace-nowrap m-0">{title}</p>
+          <p className="leading-[20px] text-[14px] text-white tracking-[-0.015em] whitespace-nowrap m-0">{title}</p>
 
           <div className="flex gap-[8px] items-center">
             <div className="flex gap-[4px] items-center">
@@ -57,7 +57,7 @@ export function ShotInfoBar({ title = 'Randler Health Care App' }: Props) {
                 <path d="M3.33355 4.14881e-05H5.0002C5.9202 4.14881e-05 6.6669 0.746692 6.6669 1.66669C6.6669 2.58669 5.9202 3.33339 5.0002 3.33339H3.33355V4.14881e-05Z" fill="#FF7262" />
                 <path d="M6.6669 5.00002C6.6669 5.92002 5.9202 6.66667 5.0002 6.66667C4.0802 6.66667 3.33355 5.92002 3.33355 5.00002C3.33355 4.08002 4.0802 3.33337 5.0002 3.33337C5.9202 3.33337 6.6669 4.08002 6.6669 5.00002Z" fill="#1ABCFE" />
               </svg>
-              <p className="leading-[16px] text-[#656565] text-[12px] tracking-[-0.12px] whitespace-nowrap m-0">Figma</p>
+              <p className="leading-[16px] text-[#656565] text-[12px] tracking-[-0.015em] whitespace-nowrap m-0">Figma</p>
             </div>
           </div>
         </div>

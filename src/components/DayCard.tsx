@@ -105,7 +105,7 @@ function CompactCard({ dayNumber, title, vercelUrl, releaseDate, dom }: DailyBui
         </span>
       </div>
       <h3
-        className={`m-0 mt-3 text-[15px] leading-[20px] font-medium tracking-[-0.01em] ${
+        className={`m-0 mt-3 text-[15px] leading-[20px] font-medium tracking-[-0.015em] ${
           shipped ? 'text-white' : 'text-white/80'
         }`}
       >

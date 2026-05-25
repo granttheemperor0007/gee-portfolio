@@ -225,7 +225,7 @@ function App() {
               ref={mShotsTabRef}
               type="button"
               onClick={() => setActiveTab('shots')}
-              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.015em] whitespace-nowrap transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50'}`}
             >
               Design Shots
             </button>
@@ -233,7 +233,7 @@ function App() {
               ref={mLabTabRef}
               type="button"
               onClick={() => setActiveTab('lab')}
-              className={`shrink-0 flex items-center gap-1 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 flex items-center gap-1 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.015em] whitespace-nowrap transition-colors ${activeTab === 'lab' ? 'text-white' : 'text-white/50'}`}
             >
               Claude Lab
               <span className="shrink-0 flex items-center h-4 px-2 rounded-full bg-[#D85A2C] text-[10px] leading-none text-white font-medium">2</span>
@@ -242,7 +242,7 @@ function App() {
               ref={mProjectsTabRef}
               type="button"
               onClick={() => setActiveTab('projects')}
-              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.18px] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
+              className={`shrink-0 bg-transparent px-0 text-[13px] font-medium leading-[20px] tracking-[-0.015em] whitespace-nowrap transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50'}`}
             >
               My Projects
             </button>
@@ -253,7 +253,7 @@ function App() {
               onClick={() => setActiveTab('shots')}
               className={`bg-transparent border-0 px-0 flex h-full items-center focus:outline-none transition-colors ${activeTab === 'shots' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
             >
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">Design Shots</span>
+              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.015em] whitespace-nowrap">Design Shots</span>
             </button>
             <button
               ref={labTabRef}
@@ -275,7 +275,7 @@ function App() {
                   <path d="M10.6773 9.65176L10.7376 9.95232L10.5567 10.1926L10.3759 10.1323L9.35365 9.41063L7.79057 8.02753L6.58747 7.18528L6.94831 6.04332L7.54943 6.40417L7.91113 7.06557L10.6773 9.65176Z" />
                   <path d="M9.89534 6.58371L11.399 6.70428L11.7598 6.94541L12.0001 7.3054V7.56548L11.3387 7.84709L7.97056 7.00484L6.58747 6.94455L6.94831 5.68203L7.91027 6.40372L9.89534 6.58371Z" />
                 </svg>
-                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">Claude Lab</span>
+                <span className="text-[14px] font-normal leading-[20px] tracking-[-0.015em] whitespace-nowrap">Claude Lab</span>
                 <span
                   className="shrink-0 flex items-center gap-1 h-5 pl-1 pr-2 rounded-[999px] bg-[#D85A2C]"
                 >
@@ -294,14 +294,14 @@ function App() {
               onClick={() => setActiveTab('projects')}
               className={`bg-transparent border-0 px-0 flex h-full items-center justify-center focus:outline-none transition-colors ${activeTab === 'projects' ? 'text-white' : 'text-white/50 hover:text-white/80'}`}
             >
-              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.18px] whitespace-nowrap">My Projects</span>
+              <span className="text-[14px] font-normal leading-[20px] tracking-[-0.015em] whitespace-nowrap">My Projects</span>
             </button>
           </div>
           <div className="flex shrink-0 items-center gap-3 py-2">
             <div className="hidden xl:flex gap-3 h-full items-center">
-              <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.24px] uppercase text-white/50 whitespace-nowrap">{date}</span>
+              <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.015em] uppercase text-white/50 whitespace-nowrap">{date}</span>
               <span className="w-[5px] h-[5px] rounded-full bg-[#F27313] inline-block" />
-              <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.24px] uppercase text-white/50 whitespace-nowrap">{time}</span>
+              <span className="font-mono font-medium text-[12px] leading-[28px] tracking-[-0.015em] uppercase text-white/50 whitespace-nowrap">{time}</span>
             </div>
             <button
               onClick={() => window.open('https://wa.me/2349021077403', '_blank', 'noopener,noreferrer')}
@@ -332,7 +332,7 @@ function App() {
         </div>
        </div>
         <div className="relative z-20 mt-1 hidden xl:flex items-center justify-between">
-          <h2 className="text-[18px] leading-[28px] tracking-[-0.36px] text-white font-medium">
+          <h2 className="text-[18px] leading-[28px] tracking-[-0.015em] text-white font-medium">
             {activeTab === 'shots'
               ? 'Design Shots by Yours Truly'
               : activeTab === 'lab'

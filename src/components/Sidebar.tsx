@@ -144,7 +144,7 @@ export function Sidebar() {
                 <img src={avatar} alt="Avatar" className="h-12 w-12 rounded-full" />
                 <div className="flex flex-col gap-[2px]">
                   <span className="text-[16px] leading-[24px] font-normal tracking-[-0.015em] text-white">Jahgrant Aiyedun</span>
-                  <span className="text-[14px] leading-[20px] font-normal font-body tracking-[-0.02em] text-white/50">Design Engineer</span>
+                  <span className="text-[14px] leading-[20px] font-normal font-body tracking-[-0.015em] text-white/50">Design Engineer</span>
                 </div>
               </div>
           </div>
@@ -259,9 +259,9 @@ export function Sidebar() {
               </radialGradient>
             </defs>
           </svg>
-          <span className="text-[12px] leading-[20px] tracking-[-0.02em] uppercase font-mono text-white/50">Companies</span>
+          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-mono text-white/50">Companies</span>
         </div>
-        <h2 className="text-[18px] leading-[32px] tracking-[-0.025em] text-white mt-2" style={{ fontWeight: 450 }}>
+        <h2 className="text-[18px] leading-[32px] tracking-[-0.015em] text-white mt-2" style={{ fontWeight: 450 }}>
           Companies I've had Impacts on
         </h2>
         <div
@@ -285,7 +285,7 @@ export function Sidebar() {
                     borderLeft: '0px solid transparent',
                   }}>
                   <span className="glow-dot-blue w-2 h-2 rounded-full bg-blue-500" />
-                  <span className="text-[12px] tracking-[-0.02em] uppercase font-mono text-white/30">CURRENT</span>
+                  <span className="text-[12px] tracking-[-0.015em] uppercase font-mono text-white/30">CURRENT</span>
                 </div>
               </div>
             ) : (
@@ -380,7 +380,7 @@ export function Sidebar() {
               </radialGradient>
             </defs>
           </svg>
-          <span className="text-[12px] leading-[20px] tracking-[-0.02em] uppercase font-mono text-white/50">Tech Stack</span>
+          <span className="text-[12px] leading-[20px] tracking-[-0.015em] uppercase font-mono text-white/50">Tech Stack</span>
         </div>
         <div className="flex items-center gap-3 mt-4">
           <img src={figmaIcon} alt="Figma" className="w-8 h-8 rounded-lg" />

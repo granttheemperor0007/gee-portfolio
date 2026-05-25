@@ -17,6 +17,7 @@ body {
 
 body {
   font-family: 'Geist', sans-serif;
+  letter-spacing: -0.015em;
 }
 
 #root {
