@@ -38,20 +38,37 @@ export function Sidebar() {
   const resumeBtnRef = useSquircle(18)
   const playBtnRef = useRef<SVGSVGElement>(null)
   const chipsRef = useRef<HTMLDivElement>(null)
+  const closeTimer = useRef<number | null>(null)
   const [companiesPopover, setCompaniesPopover] = useState<{ top: number; left: number } | null>(null)
+
+  const clearCloseTimer = useCallback(() => {
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }, [])
 
   // Float the full companies list just outside the sidebar's right edge. The aside
   // is clipped (squircle clip-path + overflow-hidden), so the popover is portaled to
   // <body> and positioned from the live aside/trigger rects. Desktop-only.
   const openCompaniesPopover = useCallback(() => {
+    clearCloseTimer()
     const aside = sidebarRef.current
     const trigger = chipsRef.current
     if (!aside || !trigger) return
     if (!window.matchMedia('(min-width: 1280px)').matches) return
     const a = aside.getBoundingClientRect()
     const t = trigger.getBoundingClientRect()
-    setCompaniesPopover({ left: a.right + 12, top: t.top + t.height / 2 })
-  }, [sidebarRef])
+    setCompaniesPopover({ left: a.right, top: t.top + t.height / 2 })
+  }, [sidebarRef, clearCloseTimer])
+
+  // Small grace delay so the cursor can cross the gap into the popover to click a link.
+  const scheduleCloseCompaniesPopover = useCallback(() => {
+    clearCloseTimer()
+    closeTimer.current = window.setTimeout(() => setCompaniesPopover(null), 180)
+  }, [clearCloseTimer])
+
+  useEffect(() => clearCloseTimer, [clearCloseTimer])
 
   const handleThumbnailClick = useCallback(() => {
     const el = playBtnRef.current
@@ -60,12 +77,12 @@ export function Sidebar() {
     setTimeout(() => el.classList.remove('tapped'), 200)
   }, [])
 
-  const companies = [
-    { name: 'Termii', logo: termiiLogo, current: true },
-    { name: 'Hashit', logo: hashitLogo },
+  const companies: { name: string; logo: string; current?: boolean; url?: string }[] = [
+    { name: 'Termii', logo: termiiLogo, current: true, url: 'https://termii.com' },
+    { name: 'Hashit', logo: hashitLogo, url: 'https://hashit.com' },
     { name: 'Digital abundance', logo: digitalLogo },
     { name: 'Partyjor', logo: partyjorLogo },
-    { name: 'GameXpay', logo: gamexpayLogo },
+    { name: 'GameXpay', logo: gamexpayLogo, url: 'https://gamexpay.com' },
   ]
 
   const [companyVisibleCount, setCompanyVisibleCount] = useState(companies.length)
@@ -250,7 +267,7 @@ export function Sidebar() {
         <div
           ref={chipsRef}
           onMouseEnter={openCompaniesPopover}
-          onMouseLeave={() => setCompaniesPopover(null)}
+          onMouseLeave={scheduleCloseCompaniesPopover}
           className="flex flex-wrap gap-2 mt-4"
         >
           {visibleCompanies.map((c) =>
@@ -300,22 +317,41 @@ export function Sidebar() {
 
         {companiesPopover && hiddenCompanies.length > 0 && createPortal(
           <div
-            className="fixed z-[100] pointer-events-none"
+            className="fixed z-[100] pl-3"
             style={{ top: companiesPopover.top, left: companiesPopover.left, transform: 'translateY(-50%)' }}
+            onMouseEnter={clearCloseTimer}
+            onMouseLeave={scheduleCloseCompaniesPopover}
           >
             <div
               className="companies-pop w-[286px] rounded-[14px] p-4"
               style={{ background: '#222225', boxShadow: '0 16px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.07)' }}
             >
-              <div className="flex flex-col gap-2">
-                {companies.map((c) => (
-                  <div key={c.name} className="flex items-center gap-3">
-                    <img src={c.logo} alt="" className="w-5 h-5 rounded-[5px]" />
-                    <span className="text-[15px] leading-[20px] text-white underline underline-offset-[3px] decoration-white/25">
-                      {c.name}
-                    </span>
-                  </div>
-                ))}
+              <div className="flex flex-col gap-3">
+                {companies.map((c) => {
+                  const inner = (
+                    <>
+                      <img src={c.logo} alt="" className="w-5 h-5 rounded-[5px]" />
+                      <span className="text-[15px] leading-[20px] underline underline-offset-[3px] decoration-white/25 group-hover/row:decoration-white/70 transition-[text-decoration-color] duration-200">
+                        {c.name}
+                      </span>
+                    </>
+                  )
+                  return c.url ? (
+                    <a
+                      key={c.name}
+                      href={c.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/row flex items-center gap-3 text-white"
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <div key={c.name} className="flex items-center gap-3 text-white/60">
+                      {inner}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>,
