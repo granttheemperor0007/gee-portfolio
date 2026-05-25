@@ -1,4 +1,6 @@
+import { useRef, useCallback } from 'react'
 import { useRive } from '@rive-app/react-canvas'
+import gsap from 'gsap'
 
 const Divider = () => (
   <svg width="1" height="13" viewBox="0 0 1 13" fill="none">
@@ -82,6 +84,61 @@ export function BottomBar() {
     autoplay: true,
     shouldDisableRiveListeners: true,
   })
+  const partyBtnRef = useRef<HTMLButtonElement>(null)
+
+  // Confetti burst that erupts from the party-popper icon itself. Particles are
+  // appended to a full-screen, click-through layer on <body> so they overlay
+  // everything and aren't clipped by the nav. Uses the icon's own palette + GSAP.
+  const fireConfetti = useCallback(() => {
+    const btn = partyBtnRef.current
+    if (!btn) return
+    const rect = btn.getBoundingClientRect()
+    const originX = rect.left + rect.width / 2
+    const originY = rect.top + rect.height / 2
+    const colors = ['#FFBFC5', '#C2F3FF', '#C9F7CA', '#FFEF5E', '#FFBC44', '#FFFFFF']
+
+    gsap.fromTo(btn, { scale: 0.8 }, { scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.4)' })
+
+    const layer = document.createElement('div')
+    layer.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden'
+    document.body.appendChild(layer)
+
+    const count = 40
+    for (let i = 0; i < count; i++) {
+      const piece = document.createElement('div')
+      const size = gsap.utils.random(6, 11)
+      piece.style.cssText =
+        `position:absolute;left:${originX}px;top:${originY}px;width:${size}px;` +
+        `height:${size * gsap.utils.random(0.4, 0.85)}px;background:${gsap.utils.random(colors)};` +
+        `border-radius:1px;will-change:transform,opacity`
+      layer.appendChild(piece)
+
+      const angle = gsap.utils.random(0, Math.PI * 2)
+      const velocity = gsap.utils.random(60, 200)
+      const vx = Math.cos(angle) * velocity
+      const vy = Math.sin(angle) * velocity - gsap.utils.random(140, 280)
+
+      gsap.timeline({ onComplete: () => piece.remove() })
+        .to(piece, {
+          x: vx,
+          y: vy,
+          rotation: gsap.utils.random(-360, 360),
+          duration: gsap.utils.random(0.4, 0.7),
+          ease: 'power2.out',
+        })
+        .to(piece, {
+          y: `+=${gsap.utils.random(220, 380)}`,
+          x: `+=${vx * 0.35}`,
+          rotation: `+=${gsap.utils.random(-180, 180)}`,
+          opacity: 0,
+          duration: gsap.utils.random(0.8, 1.2),
+          ease: 'power1.in',
+        }, '>-0.05')
+    }
+
+    gsap.delayedCall(2.4, () => layer.remove())
+  }, [])
+
   return (
     <div className="flex items-center justify-center">
       <div
@@ -136,6 +193,8 @@ export function BottomBar() {
         </button>
 
         <button
+          ref={partyBtnRef}
+          onClick={fireConfetti}
           aria-label="Celebrate"
           className="icon-tile hidden xl:flex items-center justify-center w-[26px] h-[26px]"
         >
