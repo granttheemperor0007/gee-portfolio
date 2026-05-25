@@ -18,13 +18,14 @@ export function ClaudeLab() {
 
   const shippedCount = DAILY_BUILDS.filter((b) => !!b.vercelUrl).length
 
-  const { hero, completed, upcoming } = useMemo(() => {
+  const { heroes, completed, upcoming } = useMemo(() => {
     const filtered =
       filter === 'all' ? DAILY_BUILDS : DAILY_BUILDS.filter((b) => b.domain === filter)
-    const shipped = filtered.filter((b) => !!b.vercelUrl).sort((a, b) => b.dayNumber - a.dayNumber)
-    const [hero, ...completed] = shipped
+    const shipped = filtered.filter((b) => !!b.vercelUrl)
+    const heroes = shipped.filter((b) => b.featured).sort((a, b) => b.dayNumber - a.dayNumber)
+    const completed = shipped.filter((b) => !b.featured).sort((a, b) => b.dayNumber - a.dayNumber)
     const upcoming = filtered.filter((b) => !b.vercelUrl).sort((a, b) => a.dayNumber - b.dayNumber)
-    return { hero, completed, upcoming }
+    return { heroes, completed, upcoming }
   }, [filter])
 
   const progressPct = (shippedCount / TOTAL_DAYS) * 100
@@ -77,12 +78,16 @@ export function ClaudeLab() {
       </div>
 
       <div className="flex flex-col gap-8">
-        {hero && (
+        {heroes.length > 0 && (
           <section className="flex flex-col gap-4">
             <h2 className="m-0 text-[18px] leading-[24px] tracking-[-0.02em] text-white" style={{ fontWeight: 450 }}>
-              Latest Claude Lab Challenge
+              Latest Claude Lab Challenge{heroes.length > 1 ? 's' : ''}
             </h2>
-            <DayCard variant="hero" {...hero} />
+            <div className="flex flex-col gap-4">
+              {heroes.map((b) => (
+                <DayCard key={b.dayNumber} variant="hero" {...b} />
+              ))}
+            </div>
           </section>
         )}
         {completed.length > 0 && (

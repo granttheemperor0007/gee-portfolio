@@ -7,6 +7,7 @@ export type DailyBuild = {
   description: string
   releaseDate: string
   vercelUrl?: string
+  featured?: boolean
   skill?: string
 }
 
@@ -18,6 +19,7 @@ export const DAILY_BUILDS: DailyBuild[] = [
     description: 'Live K/D ratio dashboard pulling from match telemetry.',
     releaseDate: 'May 4',
     vercelUrl: 'https://gee-day1-cod-rank.vercel.app',
+    featured: true,
   },
   {
     dayNumber: 2,
@@ -32,6 +34,8 @@ export const DAILY_BUILDS: DailyBuild[] = [
     domain: 'meta',
     description: 'Lighter day. Build the doc Claude reads at the start of every session.',
     releaseDate: 'May 4',
+    vercelUrl: 'https://day-03-three.vercel.app',
+    featured: true,
   },
   {
     dayNumber: 4,
