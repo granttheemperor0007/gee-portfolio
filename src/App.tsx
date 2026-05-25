@@ -10,11 +10,11 @@ import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
 const DESIGN_SHOTS = [
-  '/shots/shot-1.jpg',
-  '/shots/shot-2.jpg',
-  '/shots/shot-3.jpg',
-  '/shots/shot-4.jpg',
-  '/shots/shot-7.jpg',
+  { src: '/shots/shot-1.jpg', title: 'Temperature Corner' },
+  { src: '/shots/shot-2.jpg', title: 'Nearest Care Finder' },
+  { src: '/shots/shot-3.jpg', title: 'CosmoStation Wallet' },
+  { src: '/shots/shot-4.jpg', title: 'Stake-Fi Lending' },
+  { src: '/shots/shot-7.jpg', title: 'Stakeron Staking' },
 ]
 
 function useNigerianTime() {
@@ -156,7 +156,7 @@ function App() {
           {activeTab === 'projects' && (
             <div className="text-[13px] text-white/40">My Projects coming soon.</div>
           )}
-          {activeTab === 'shots' && DESIGN_SHOTS.map((shotSrc, i) => (
+          {activeTab === 'shots' && DESIGN_SHOTS.map((shot, i) => (
             <div
               key={i}
               className="shot-tile group relative w-full shrink-0 aspect-[3/2] max-h-[540px] rounded-[24px] overflow-hidden"
@@ -167,12 +167,12 @@ function App() {
               }}
             >
               <img
-                src={shotSrc}
-                alt=""
+                src={shot.src}
+                alt={shot.title}
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                <ShotInfoBar />
+                <ShotInfoBar title={shot.title} />
               </div>
             </div>
           ))}
