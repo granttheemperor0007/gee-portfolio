@@ -144,7 +144,7 @@ function App() {
     <>
     <main className="min-h-screen px-4 py-6 font-body" style={{ background: 'var(--color-bg-app)' }}>
       <Sidebar />
-      <div id="rightside" className="relative w-full flex justify-center xl:fixed xl:top-6 xl:right-6 xl:bottom-0 xl:left-[392px]">
+      <div id="rightside" className="relative w-full max-w-[720px] mx-auto flex justify-center xl:max-w-none xl:mx-0 xl:fixed xl:top-6 xl:right-6 xl:bottom-0 xl:left-[392px]">
        <div className="relative flex flex-col w-full h-auto max-w-full xl:block xl:h-full xl:max-w-[1024px]">
         <div
           ref={shotsRef}
