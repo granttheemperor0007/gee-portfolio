@@ -323,7 +323,7 @@ export function Sidebar() {
             onMouseLeave={scheduleCloseCompaniesPopover}
           >
             <div
-              className="companies-pop w-[286px] rounded-[14px] p-4"
+              className="companies-pop w-fit rounded-[14px] p-4"
               style={{ background: '#222225', boxShadow: '0 16px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.07)' }}
             >
               <div className="flex flex-col gap-3">
