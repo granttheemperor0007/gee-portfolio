@@ -2,6 +2,7 @@ import videoThumbnail from '../assets/images/video-thumbnail.png'
 import blurOverlay from '../assets/images/blur-overlay.png'
 import avatar from '../assets/images/avatar.png'
 import { useRef, useCallback, useState, useEffect, useLayoutEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useRive } from '@rive-app/react-canvas'
 import { useSquircle } from '../hooks/useSquircle'
 import figmaIcon from '../assets/icons/figma.png'
@@ -36,6 +37,21 @@ export function Sidebar() {
   const chatBtnRef = useSquircle(18)
   const resumeBtnRef = useSquircle(18)
   const playBtnRef = useRef<SVGSVGElement>(null)
+  const chipsRef = useRef<HTMLDivElement>(null)
+  const [companiesPopover, setCompaniesPopover] = useState<{ top: number; left: number } | null>(null)
+
+  // Float the full companies list just outside the sidebar's right edge. The aside
+  // is clipped (squircle clip-path + overflow-hidden), so the popover is portaled to
+  // <body> and positioned from the live aside/trigger rects. Desktop-only.
+  const openCompaniesPopover = useCallback(() => {
+    const aside = sidebarRef.current
+    const trigger = chipsRef.current
+    if (!aside || !trigger) return
+    if (!window.matchMedia('(min-width: 1280px)').matches) return
+    const a = aside.getBoundingClientRect()
+    const t = trigger.getBoundingClientRect()
+    setCompaniesPopover({ left: a.right + 12, top: t.top + t.height / 2 })
+  }, [sidebarRef])
 
   const handleThumbnailClick = useCallback(() => {
     const el = playBtnRef.current
@@ -164,6 +180,14 @@ export function Sidebar() {
                   className="btn-sidebar relative flex-1 h-9 rounded-[18px] px-4 text-[14px] leading-[20px] text-white overflow-hidden"
                   onMouseEnter={playSwipeSound}
                   onMouseDown={playClickSound}
+                  onClick={() => {
+                    const a = document.createElement('a')
+                    a.href = '/grant-resume.pdf'
+                    a.download = 'Jahgrant Aiyedun - Resume.pdf'
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                  }}
                   style={{
                     background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.08), rgba(153,153,153,0.08))',
                     border: 'none',
@@ -223,7 +247,12 @@ export function Sidebar() {
         <h2 className="text-[18px] leading-[32px] tracking-[-0.025em] text-white mt-2" style={{ fontWeight: 450 }}>
           Companies I've had Impacts on
         </h2>
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div
+          ref={chipsRef}
+          onMouseEnter={openCompaniesPopover}
+          onMouseLeave={() => setCompaniesPopover(null)}
+          className="flex flex-wrap gap-2 mt-4"
+        >
           {visibleCompanies.map((c) =>
             c.current ? (
               <div key={c.name} className="flex items-center -space-x-[1px]">
@@ -268,6 +297,30 @@ export function Sidebar() {
             </div>
           )}
         </div>
+
+        {companiesPopover && hiddenCompanies.length > 0 && createPortal(
+          <div
+            className="fixed z-[100] pointer-events-none"
+            style={{ top: companiesPopover.top, left: companiesPopover.left, transform: 'translateY(-50%)' }}
+          >
+            <div
+              className="companies-pop w-[286px] rounded-[14px] p-4"
+              style={{ background: '#222225', boxShadow: '0 16px 40px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.07)' }}
+            >
+              <div className="flex flex-col gap-2">
+                {companies.map((c) => (
+                  <div key={c.name} className="flex items-center gap-3">
+                    <img src={c.logo} alt="" className="w-5 h-5 rounded-[5px]" />
+                    <span className="text-[15px] leading-[20px] text-white underline underline-offset-[3px] decoration-white/25">
+                      {c.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
       </div>
 
       <div
