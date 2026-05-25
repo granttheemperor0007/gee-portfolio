@@ -5,8 +5,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['TWK Lausanne', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        body: ['Geist', 'sans-serif'],
+        mono: ['Geist Mono', 'monospace'],
       },
       borderRadius: {
         outer: '32px',
