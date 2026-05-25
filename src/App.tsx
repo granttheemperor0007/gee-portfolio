@@ -5,7 +5,6 @@ import { useRive } from '@rive-app/react-canvas'
 import { Sidebar } from './components/Sidebar'
 import { BottomBar } from './components/BottomBar'
 import { ShotInfoBar } from './components/ShotInfoBar'
-import { GlitchReveal } from './components/GlitchReveal'
 import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
@@ -40,8 +39,6 @@ function App() {
   const { date, time } = useNigerianTime()
   const isDesktop = useMediaQuery('(min-width: 1280px)')
   const shotsRef = useRef<HTMLDivElement>(null)
-  const testimonialsRef = useRef<HTMLDivElement>(null)
-  const [testimonialsInView, setTestimonialsInView] = useState(false)
   const [activeTab, setActiveTab] = useState<'projects' | 'shots' | 'lab'>('shots')
   const [gridCols, setGridCols] = useState<1 | 2>(1)
   const [shotsAnimating, setShotsAnimating] = useState(false)
@@ -90,17 +87,6 @@ function App() {
     autoplay: true,
     shouldDisableRiveListeners: true,
   })
-
-  useEffect(() => {
-    const el = testimonialsRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => setTestimonialsInView(entry.isIntersecting),
-      { threshold: 0.25, rootMargin: '0px 0px -65% 0px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     // Lenis hijacks scroll on the fixed desktop content pane. On mobile the
@@ -188,21 +174,6 @@ function App() {
             )
           })}
 
-          {activeTab === 'shots' && (
-            <div ref={testimonialsRef} className={`mt-8 shrink-0 ${gridCols === 2 ? 'col-span-2' : ''}`}>
-              <div className="flex items-center gap-3 text-[12px] tracking-[-0.02em] uppercase font-mono text-white/50">
-                <span>Testimonials</span>
-                <span className="w-[5px] h-[5px] rounded-full bg-[#F27313] inline-block" />
-                <span>Thoughts</span>
-              </div>
-              <h2 className="text-[18px] leading-[28px] tracking-[-0.02em] text-white mt-[7px]" style={{ fontWeight: 450 }}>
-                <GlitchReveal text="What People Say About My Work" />
-              </h2>
-              <div id="testimonials-content" className="mt-4 flex flex-col gap-4">
-                {/* testimonial entries go here */}
-              </div>
-            </div>
-          )}
         </div>
         <div
           aria-hidden
@@ -335,7 +306,7 @@ function App() {
           />
         </div>
        </div>
-        <div className={`relative z-20 mt-1 hidden xl:flex items-center justify-between origin-top transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${testimonialsInView ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
+        <div className="relative z-20 mt-1 hidden xl:flex items-center justify-between">
           <h2 className="text-[18px] leading-[28px] tracking-[-0.36px] text-white font-medium">
             {activeTab === 'shots'
               ? 'Design Shots by Yours Truly'

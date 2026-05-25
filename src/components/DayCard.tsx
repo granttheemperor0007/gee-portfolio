@@ -37,14 +37,8 @@ function HeroCard({ dayNumber, title, vercelUrl, dom }: DailyBuild & { dom: DomS
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         referrerPolicy="no-referrer"
-        className="absolute top-0 left-0"
-        style={{
-          border: 0,
-          width: 'calc(100% / 0.6)',
-          height: 'calc(100% / 0.6)',
-          transformOrigin: 'top left',
-          transform: 'scale(0.6)',
-        }}
+        className="absolute top-0 left-0 origin-top-left w-[calc(100%/0.35)] h-[calc(100%/0.35)] scale-[0.35] xl:w-[calc(100%/0.6)] xl:h-[calc(100%/0.6)] xl:scale-[0.6]"
+        style={{ border: 0 }}
       />
       <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
         <div
