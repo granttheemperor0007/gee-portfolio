@@ -6,8 +6,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Geist', 'sans-serif'],
-        mono: ['Geist Mono', 'monospace'],
-        jetbrains: ['JetBrains Mono', 'monospace'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       borderRadius: {
         outer: '32px',
