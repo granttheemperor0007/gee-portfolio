@@ -15,6 +15,7 @@ const DESIGN_SHOTS = [
   { src: '/shots/shot-3.jpg', title: 'CosmoStation Wallet' },
   { src: '/shots/shot-4.jpg', title: 'Stake-Fi Lending' },
   { src: '/shots/shot-7.jpg', title: 'Stakeron Staking' },
+  { src: '/shots/shot-8.jpg', title: 'Origami Security Settings' },
 ]
 
 function useNigerianTime() {
