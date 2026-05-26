@@ -7,6 +7,7 @@ export type DailyBuild = {
   description: string
   releaseDate: string
   vercelUrl?: string
+  poster?: string
   featured?: boolean
   skill?: string
 }
@@ -19,6 +20,7 @@ export const DAILY_BUILDS: DailyBuild[] = [
     description: 'Live K/D ratio dashboard pulling from match telemetry.',
     releaseDate: 'May 4',
     vercelUrl: 'https://gee-day1-cod-rank.vercel.app',
+    poster: '/shots/build-day1-kd.jpg',
     featured: true,
   },
   {
@@ -28,6 +30,7 @@ export const DAILY_BUILDS: DailyBuild[] = [
     description: 'Team task board with cards, assignees, due dates, and subtasks.',
     releaseDate: 'May 5',
     vercelUrl: 'https://day-03-three.vercel.app',
+    poster: '/shots/build-day2-taskbox.jpg',
     featured: true,
   },
   {
