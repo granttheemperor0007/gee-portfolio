@@ -199,8 +199,8 @@ export function Sidebar() {
                   onMouseDown={playClickSound}
                   onClick={() => {
                     const a = document.createElement('a')
-                    a.href = '/grant-resume.pdf'
-                    a.download = 'Jahgrant Aiyedun - Resume.pdf'
+                    a.href = '/Jahgrant_Aiyedun_Resume.pdf'
+                    a.download = 'Jahgrant_Aiyedun_Resume.pdf'
                     document.body.appendChild(a)
                     a.click()
                     a.remove()
