@@ -10,6 +10,7 @@ import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
 const DESIGN_SHOTS = [
+  { src: '/shots/shot-9.jpg', title: 'Raychee Daily Planner' },
   { src: '/shots/shot-1.jpg', title: 'Temperature Corner' },
   { src: '/shots/shot-2.jpg', title: 'Nearest Care Finder' },
   { src: '/shots/shot-3.jpg', title: 'CosmoStation Wallet' },
