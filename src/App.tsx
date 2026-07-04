@@ -9,11 +9,12 @@ import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
-const DESIGN_SHOTS = [
+const DESIGN_SHOTS: { src: string; title: string; video?: boolean }[] = [
   { src: '/shots/shot-9.jpg', title: 'Raychee Daily Planner' },
   { src: '/shots/shot-1.jpg', title: 'Temperature Corner' },
   { src: '/shots/shot-2.jpg', title: 'Nearest Care Finder' },
   { src: '/shots/shot-3.jpg', title: 'CosmoStation Wallet' },
+  { src: '/shots/wed.mp4', title: 'Wedding', video: true },
   { src: '/shots/shot-4.jpg', title: 'Stake-Fi Lending' },
   { src: '/shots/shot-7.jpg', title: 'Stakeron Staking' },
   { src: '/shots/shot-8.jpg', title: 'Origami Security Settings' },
@@ -52,6 +53,8 @@ function App() {
   const lenisRef = useRef<Lenis | null>(null)
   const [activeTab, setActiveTab] = useState<'projects' | 'shots' | 'lab'>('shots')
   const [gridCols, setGridCols] = useState<1 | 2>(1)
+  const [expandedVideo, setExpandedVideo] = useState<string | null>(null)
+  const [lightboxShown, setLightboxShown] = useState(false)
   const [shotsAnimating, setShotsAnimating] = useState(false)
   const projectsTabRef = useRef<HTMLButtonElement>(null)
   const shotsTabRef = useRef<HTMLButtonElement>(null)
@@ -175,6 +178,25 @@ function App() {
     }
   }, [activeTab])
 
+  const closeVideo = () => {
+    setLightboxShown(false)
+    window.setTimeout(() => setExpandedVideo(null), 320)
+  }
+
+  // Fade + scale the lightbox in on the frame after it mounts, and let Escape close it.
+  useEffect(() => {
+    if (!expandedVideo) return
+    const raf = requestAnimationFrame(() => setLightboxShown(true))
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeVideo()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [expandedVideo])
+
   return (
     <>
     <main className="min-h-screen px-4 py-6 font-body" style={{ background: 'var(--color-bg-app)' }}>
@@ -189,26 +211,90 @@ function App() {
         >
           {activeTab === 'lab' && <ClaudeLab />}
           {activeTab === 'projects' && (
-            <div className="text-[13px] text-white/40">My Projects coming soon.</div>
-          )}
-          {activeTab === 'shots' && DESIGN_SHOTS.map((shot, i) => (
             <div
-              key={i}
-              className="shot-tile group relative w-full shrink-0 aspect-[4/3] max-h-[664px] rounded-[24px] overflow-hidden"
+              className="group relative w-full shrink-0 aspect-[4/3] max-h-[664px] rounded-[24px] overflow-hidden"
               style={{
                 background:
                   'linear-gradient(180deg, rgba(56,61,64,0.2) 0%, rgba(30,32,35,0.2) 35%, rgba(40,43,46,0.2) 65%, rgba(56,61,64,0.2) 100%)',
                 boxShadow: 'inset 0 0 0 1px rgba(72,72,79,0.155)',
               }}
             >
-              <img
-                src={shot.src}
-                alt={shot.title}
-                className="absolute inset-0 w-full h-full object-cover"
+              <iframe
+                src="https://termii-web.vercel.app/"
+                title="Termii"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-modals"
+                className="absolute top-0 left-0 origin-top-left w-[calc(100%/0.35)] h-[calc(100%/0.35)] scale-[0.35] xl:w-[calc(100%/0.6)] xl:h-[calc(100%/0.6)] xl:scale-[0.6]"
+                style={{ border: 0 }}
               />
               <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                <ShotInfoBar title={shot.title} />
+                <div
+                  className="flex items-center justify-between gap-3 px-3 py-2 rounded-[16px]"
+                  style={{
+                    background: 'linear-gradient(180deg, #191919 0%, #262626 100%)',
+                    border: '1px solid rgba(255,255,255,0.06)',
+                    filter: 'drop-shadow(0 4px 10px rgba(0,0,0,0.25))',
+                  }}
+                >
+                  <span className="text-[14px] leading-[20px] text-white truncate">Termii</span>
+                  <a
+                    href="https://termii-web.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[11px] text-white/55 hover:text-white transition-colors shrink-0"
+                  >
+                    Open in new tab
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M3 7L7 3M7 3H4M7 3V6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </div>
               </div>
+            </div>
+          )}
+          {activeTab === 'shots' && DESIGN_SHOTS.map((shot, i) => (
+            <div
+              key={i}
+              onClick={shot.video ? () => setExpandedVideo(shot.src) : undefined}
+              className={`shot-tile group relative w-full shrink-0 aspect-[4/3] max-h-[664px] rounded-[24px] overflow-hidden ${shot.video ? 'cursor-pointer' : ''}`}
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(56,61,64,0.2) 0%, rgba(30,32,35,0.2) 35%, rgba(40,43,46,0.2) 65%, rgba(56,61,64,0.2) 100%)',
+                boxShadow: 'inset 0 0 0 1px rgba(72,72,79,0.155)',
+              }}
+            >
+              {shot.video ? (
+                <video
+                  src={shot.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <img
+                  src={shot.src}
+                  alt={shot.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              {shot.video && (
+                <span
+                  className="absolute top-3 right-3 flex items-center gap-1.5 h-8 pl-2.5 pr-3 rounded-full text-[12px] font-medium text-white/90 backdrop-blur-md opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+                  style={{ background: 'rgba(20,20,22,0.55)', border: '0.5px solid rgba(255,255,255,0.14)' }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M4.5 1.5H1.5V4.5M7.5 1.5H10.5V4.5M4.5 10.5H1.5V7.5M7.5 10.5H10.5V7.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Expand
+                </span>
+              )}
+              {!shot.video && (
+                <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                  <ShotInfoBar title={shot.title} />
+                </div>
+              )}
             </div>
           ))}
 
@@ -455,6 +541,51 @@ function App() {
       </div>
     </main>
     <Stars />
+    {expandedVideo && (
+      <div
+        onClick={closeVideo}
+        className="fixed inset-0 z-[100] flex items-center justify-center p-6"
+        style={{
+          background: lightboxShown ? 'rgba(0,0,0,0.72)' : 'rgba(0,0,0,0)',
+          backdropFilter: lightboxShown ? 'blur(8px)' : 'blur(0px)',
+          WebkitBackdropFilter: lightboxShown ? 'blur(8px)' : 'blur(0px)',
+          transition: 'background 320ms ease, backdrop-filter 320ms ease',
+        }}
+      >
+        <video
+          src={expandedVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onClick={(e) => e.stopPropagation()}
+          className="max-w-[92vw] max-h-[88vh] w-auto h-auto rounded-[24px]"
+          style={{
+            boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+            opacity: lightboxShown ? 1 : 0,
+            transform: lightboxShown ? 'scale(1)' : 'scale(0.92)',
+            transition:
+              'opacity 320ms cubic-bezier(0.22,1,0.36,1), transform 320ms cubic-bezier(0.22,1,0.36,1)',
+          }}
+        />
+        <button
+          type="button"
+          onClick={closeVideo}
+          aria-label="Close video"
+          className="absolute top-5 right-5 flex items-center justify-center w-9 h-9 rounded-full text-white/80 hover:text-white backdrop-blur-md transition-colors"
+          style={{
+            background: 'rgba(20,20,22,0.55)',
+            border: '0.5px solid rgba(255,255,255,0.14)',
+            opacity: lightboxShown ? 1 : 0,
+            transition: 'opacity 320ms ease',
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+    )}
     </>
   )
 }
