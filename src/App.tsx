@@ -9,7 +9,8 @@ import { Stars } from './components/Stars'
 import { ClaudeLab } from './components/ClaudeLab'
 import { useMediaQuery } from './hooks/useMediaQuery'
 
-const DESIGN_SHOTS: { src: string; title: string; video?: boolean }[] = [
+const DESIGN_SHOTS: { src: string; title: string; video?: boolean; sound?: boolean }[] = [
+  { src: '/shots/rive-switcher.mp4', title: 'Rive Game Character Switcher', video: true, sound: true },
   { src: '/shots/shot-9.jpg', title: 'Raychee Daily Planner' },
   { src: '/shots/shot-1.jpg', title: 'Temperature Corner' },
   { src: '/shots/shot-2.jpg', title: 'Nearest Care Finder' },
@@ -55,6 +56,8 @@ function App() {
   const [gridCols, setGridCols] = useState<1 | 2>(1)
   const [expandedVideo, setExpandedVideo] = useState<string | null>(null)
   const [lightboxShown, setLightboxShown] = useState(false)
+  const [videoMuted, setVideoMuted] = useState(false)
+  const expandedShot = DESIGN_SHOTS.find((s) => s.src === expandedVideo)
   const [shotsAnimating, setShotsAnimating] = useState(false)
   const projectsTabRef = useRef<HTMLButtonElement>(null)
   const shotsTabRef = useRef<HTMLButtonElement>(null)
@@ -255,7 +258,7 @@ function App() {
           {activeTab === 'shots' && DESIGN_SHOTS.map((shot, i) => (
             <div
               key={i}
-              onClick={shot.video ? () => setExpandedVideo(shot.src) : undefined}
+              onClick={shot.video ? () => { setVideoMuted(false); setExpandedVideo(shot.src) } : undefined}
               className={`shot-tile group relative w-full shrink-0 aspect-[4/3] max-h-[664px] rounded-[24px] overflow-hidden ${shot.video ? 'cursor-pointer' : ''}`}
               style={{
                 background:
@@ -556,7 +559,9 @@ function App() {
           src={expandedVideo}
           autoPlay
           loop
-          muted
+          muted={expandedShot?.sound ? videoMuted : true}
+          // React doesn't reliably sync the muted attribute after mount, so set it on the node directly.
+          ref={(el) => { if (el) el.muted = expandedShot?.sound ? videoMuted : true }}
           playsInline
           onClick={(e) => e.stopPropagation()}
           className="max-w-[92vw] max-h-[88vh] w-auto h-auto rounded-[24px]"
@@ -568,6 +573,32 @@ function App() {
               'opacity 320ms cubic-bezier(0.22,1,0.36,1), transform 320ms cubic-bezier(0.22,1,0.36,1)',
           }}
         />
+        {expandedShot?.sound && (
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setVideoMuted((m) => !m) }}
+            aria-label={videoMuted ? 'Unmute video' : 'Mute video'}
+            className="absolute top-5 right-16 flex items-center justify-center w-9 h-9 rounded-full text-white/80 hover:text-white backdrop-blur-md transition-colors"
+            style={{
+              background: 'rgba(20,20,22,0.55)',
+              border: '0.5px solid rgba(255,255,255,0.14)',
+              opacity: lightboxShown ? 1 : 0,
+              transition: 'opacity 320ms ease',
+            }}
+          >
+            {videoMuted ? (
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 5.25v3.5h2l3 2.5v-8.5l-3 2.5H2z" fill="currentColor" />
+                <path d="M9.5 5.5l3 3M12.5 5.5l-3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 5.25v3.5h2l3 2.5v-8.5l-3 2.5H2z" fill="currentColor" />
+                <path d="M9.5 5a3.2 3.2 0 010 4M11 3.5a5.2 5.2 0 010 7" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+        )}
         <button
           type="button"
           onClick={closeVideo}
