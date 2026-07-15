@@ -78,7 +78,7 @@ export function Sidebar() {
   }, [])
 
   const companies: { name: string; logo: string; current?: boolean; url?: string }[] = [
-    { name: 'Termii', logo: termiiLogo, current: true, url: 'https://termii.com' },
+    { name: 'Termii', logo: termiiLogo, url: 'https://termii.com' },
     { name: 'Hashit', logo: hashitLogo, url: 'https://hashit.com' },
     { name: 'Partyjor', logo: partyjorLogo, url: 'https://partyjor.com' },
     { name: 'Digital abundance', logo: digitalLogo },
