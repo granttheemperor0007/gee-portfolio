@@ -14,6 +14,16 @@ export type DailyBuild = {
 
 export const DAILY_BUILDS: DailyBuild[] = [
   {
+    dayNumber: 25,
+    title: 'Car World',
+    domain: 'gaming',
+    description: 'Drivable 3D city — night rain, live speedo, and a minimap.',
+    releaseDate: 'June 17',
+    vercelUrl: 'https://car-world-one.vercel.app/',
+    poster: '/shots/car-world-poster.jpg',
+    featured: true,
+  },
+  {
     dayNumber: 1,
     title: 'K/D Tracker',
     domain: 'gaming',
