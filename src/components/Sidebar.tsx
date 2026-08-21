@@ -176,7 +176,7 @@ export function Sidebar() {
               <div className="flex gap-2">
                 <button
                   ref={chatBtnRef as unknown as React.RefObject<HTMLButtonElement>}
-                  className="btn-sidebar relative flex-1 h-9 rounded-[18px] px-4 text-[14px] leading-[20px] text-white overflow-hidden flex items-center justify-center gap-1"
+                  className="btn-chat relative flex-1 h-9 rounded-[18px] px-4 text-[14px] leading-[20px] text-white overflow-hidden flex items-center justify-center gap-1"
                   onMouseEnter={() => { playSwipeSound(); setChatHovered(true) }}
                   onMouseLeave={() => setChatHovered(false)}
                   onMouseDown={playClickSound}

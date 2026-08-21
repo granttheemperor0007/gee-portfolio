@@ -177,7 +177,7 @@ export function BottomBar() {
 
         <button
           onClick={() => window.open('https://wa.me/2349021077403', '_blank', 'noopener,noreferrer')}
-          className="btn-sidebar group rounded-full pl-3 pr-4 h-6 text-[12px] font-body text-white flex items-center"
+          className="btn-chat group rounded-full pl-3 pr-4 h-6 text-[12px] font-body text-white flex items-center"
           style={{
             background: 'rgba(255,255,255,0.08)',
             border: '0.5px solid rgba(255,255,255,0.05)',
