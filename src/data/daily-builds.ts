@@ -14,6 +14,16 @@ export type DailyBuild = {
 
 export const DAILY_BUILDS: DailyBuild[] = [
   {
+    dayNumber: 26,
+    title: 'Vespid',
+    domain: 'saas',
+    description: 'Landing page for a CI platform — millisecond starts, preview per push.',
+    releaseDate: 'June 18',
+    vercelUrl: 'https://wasp-landing.vercel.app/',
+    poster: '/shots/vespid-poster.jpg',
+    featured: true,
+  },
+  {
     dayNumber: 25,
     title: 'Car World',
     domain: 'gaming',
