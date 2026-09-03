@@ -15,7 +15,7 @@ import { useMediaQuery } from './hooks/useMediaQuery'
 const SHIPPED_BUILDS = DAILY_BUILDS.filter((b) => !!b.vercelUrl).length
 
 const DESIGN_SHOTS: Shot[] = [
-  { src: '/shots/rive-switcher.mp4', title: 'Rive Game Character Switcher', video: true, sound: true, poster: '/shots/rive-switcher-poster.jpg' },
+  { src: '/shots/rive-switcher.mp4', title: 'Rive Game Character Switcher', video: true, sound: true, poster: '/shots/rive-switcher-poster.jpg', tool: 'rive' },
   { src: '/shots/car-world.mp4', title: 'Car World Driving Sim', video: true, sound: true, poster: '/shots/car-world-poster.jpg' },
   { src: '/shots/shot-taskbox.jpg', title: 'Task-box Board' },
   { src: '/shots/shot-pricerbox.jpg', title: 'Pricer-box' },

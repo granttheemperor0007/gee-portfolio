@@ -7,6 +7,8 @@ export type Shot = {
   video?: boolean
   sound?: boolean
   poster?: string
+  /** Which tool built the shot — drives the credit line in the info bar. */
+  tool?: 'figma' | 'rive'
 }
 
 const TILE_BG =
@@ -122,7 +124,7 @@ export function ShotTile({ shot, index, onExpand }: { shot: Shot; index: number;
       {/* Videos get the same slide-up info bar as the stills — the Expand pill
           sits top-right, so the two never collide. */}
       <div className="absolute left-3 right-3 bottom-3 translate-y-[calc(100%+12px)] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
-        <ShotInfoBar title={shot.title} />
+        <ShotInfoBar title={shot.title} tool={shot.tool} />
       </div>
     </div>
   )

@@ -1,5 +1,8 @@
+import riveIcon from '../assets/icons/rive.png'
+
 type Props = {
   title?: string
+  tool?: 'figma' | 'rive'
 }
 
 const botPath =
@@ -8,7 +11,7 @@ const botPath =
 const arrowPath =
   "M9.34977 0.183057C9.59385 -0.0610196 9.98948 -0.0610186 10.2336 0.183057L16.0669 6.01639C16.1841 6.1336 16.25 6.29254 16.25 6.45829C16.25 6.62402 16.1841 6.78298 16.0669 6.90018L10.2336 12.7335C9.98949 12.9776 9.59384 12.9776 9.34977 12.7335C9.1057 12.4894 9.10572 12.0938 9.34977 11.8497L14.1162 7.08329H0.625C0.279841 7.08329 3.13516e-05 6.80344 0 6.45829C0 6.11311 0.279822 5.83329 0.625 5.83329H14.1162L9.34977 1.06685C9.1057 0.82277 9.1057 0.427135 9.34977 0.183057Z"
 
-export function ShotInfoBar({ title = 'Randler Health Care App' }: Props) {
+export function ShotInfoBar({ title = 'Randler Health Care App', tool = 'figma' }: Props) {
   return (
     <div
       className="flex items-start justify-between p-[12px] relative rounded-[16px] h-[64px] w-full"
@@ -50,6 +53,9 @@ export function ShotInfoBar({ title = 'Randler Health Care App' }: Props) {
 
           <div className="flex gap-[8px] items-center">
             <div className="flex gap-[4px] items-center">
+              {tool === 'rive' ? (
+                <img src={riveIcon} alt="" className="w-[12px] h-[12px] rounded-[3px] shrink-0" />
+              ) : (
               <svg width="6.667" height="10" viewBox="0 0 6.6669 10.0001" fill="none" className="shrink-0">
                 <path d="M1.66691 10.0001C2.58691 10.0001 3.33356 9.25341 3.33356 8.33341V6.66671H1.66691C0.746915 6.66671 0.000214736 7.41341 0.000214736 8.33341C0.000214736 9.25341 0.746915 10.0001 1.66691 10.0001Z" fill="#0ACF83" />
                 <path d="M0.000214736 5.00002C0.000214736 4.08002 0.746915 3.33337 1.66691 3.33337H3.33356V6.66667H1.66691C0.746915 6.66667 0.000214736 5.92002 0.000214736 5.00002Z" fill="#A259FF" />
@@ -57,7 +63,10 @@ export function ShotInfoBar({ title = 'Randler Health Care App' }: Props) {
                 <path d="M3.33355 4.14881e-05H5.0002C5.9202 4.14881e-05 6.6669 0.746692 6.6669 1.66669C6.6669 2.58669 5.9202 3.33339 5.0002 3.33339H3.33355V4.14881e-05Z" fill="#FF7262" />
                 <path d="M6.6669 5.00002C6.6669 5.92002 5.9202 6.66667 5.0002 6.66667C4.0802 6.66667 3.33355 5.92002 3.33355 5.00002C3.33355 4.08002 4.0802 3.33337 5.0002 3.33337C5.9202 3.33337 6.6669 4.08002 6.6669 5.00002Z" fill="#1ABCFE" />
               </svg>
-              <p className="leading-[16px] text-[#656565] text-[12px] tracking-[-0.015em] whitespace-nowrap m-0">Figma</p>
+              )}
+              <p className="leading-[16px] text-[#656565] text-[12px] tracking-[-0.015em] whitespace-nowrap m-0">
+                {tool === 'rive' ? 'Rive' : 'Figma'}
+              </p>
             </div>
           </div>
         </div>
